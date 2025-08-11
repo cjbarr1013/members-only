@@ -37,9 +37,16 @@ app.use('/view', viewRouter);
 app.use('/', indexRouter);
 
 // error handling
+app.use((req, res, next) => {
+  const err = new Error('No page found, dumbass.');
+  err.status = 404;
+  next(err);
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
-  res.status(err.statusCode || 500).send(err.message);
+  res.status(err.statusCode || 500);
+  res.send(err.message);
 });
 
 // server
