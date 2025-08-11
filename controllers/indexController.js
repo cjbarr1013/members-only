@@ -1,5 +1,5 @@
 async function indexGet(req, res) {
-  res.redirect('view/posts');
+  res.redirect('/view/posts');
 }
 
 module.exports = {
