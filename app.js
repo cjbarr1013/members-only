@@ -39,7 +39,7 @@ app.use('/', indexRouter);
 // error handling
 app.use((req, res, next) => {
   const err = new Error('No page found, dumbass.');
-  err.status = 404;
+  err.statusCode = 404;
   next(err);
 });
 
