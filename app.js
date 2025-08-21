@@ -1,8 +1,10 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
-// const passport = require("passport");
-// const session = require("express-session");
+const passport = require('passport');
+const session = require('express-session');
+const pgSession = require('connect-pg-simple')(session);
+const pool = require('./db/pool');
 const addRouter = require('./routes/addRouter');
 const authRouter = require('./routes/authRouter');
 const deleteRouter = require('./routes/deleteRouter');
@@ -24,9 +26,32 @@ app.use(express.static(assetsPath));
 // allows req.body to access submitted HTML form data
 app.use(express.urlencoded({ extended: true }));
 
-// passport
-// app.use(session({ /* session config */ }));
-// app.use(passport.session());
+// sessions and authentication
+const sessionStore = new pgSession({
+  pool,
+  createTableIfMissing: true,
+});
+
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    store: sessionStore,
+    cookie: {
+      maxAge: 1000 * 60 * 60 * 24, // equals one day
+    },
+  })
+);
+
+require('./config/passport');
+app.use(passport.session());
+
+// misc. middleware
+app.use((req, res, next) => {
+  res.locals.currentUser = req.user;
+  next();
+});
 
 // routes
 app.use('/add', addRouter);
@@ -37,16 +62,15 @@ app.use('/view', viewRouter);
 app.use('/', indexRouter);
 
 // error handling
-app.use((req, res, next) => {
-  const err = new Error('No page found, dumbass.');
-  err.statusCode = 404;
-  next(err);
+app.use((req, res) => {
+  return res.status(404).send('There is no page here, dumbass.');
 });
 
 app.use((err, req, res, next) => {
-  console.error(err);
-  res.status(err.statusCode || 500);
-  res.send(err.message);
+  const status = err.status || err.statusCode || 500;
+  if (status !== 404) console.error(err);
+  res.status(status);
+  return res.send(err.message);
 });
 
 // server

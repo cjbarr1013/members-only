@@ -1,15 +1,57 @@
 const { body, validationResult } = require('express-validator');
 const db = require('../db/queries');
 
-function addCommentPost(req, res) {
-  res.redirect('/');
+const validateNewComment = [
+  body('message')
+    .trim()
+    .notEmpty()
+    .withMessage('You must enter a comment.')
+    .bail()
+    .isLength({ max: 2000 })
+    .withMessage('Length of name cannot exceed 50 characters.'),
+];
+
+async function addCommentPost(req, res, next) {
+  // From locals: user_id
+  // From req: message, post_id
+  // To database: message, post_id, user_id
+
+  const { message } = req.body;
+  const { postId } = req.params;
+  const errors = validationResult(req);
+
+  if (!errors.isEmpty()) {
+    // return res.status(400).render('', {
+    //   ...
+    //   errors: errors.array(),
+    // })
+    return;
+  }
+
+  try {
+    await db.addComment(message, postId, req.user.id);
+    return res.redirect(`/view/posts/${postId}`);
+  } catch (err) {
+    next(err);
+  }
 }
 
-function deleteCommentPost(req, res) {
-  res.redirect('/');
+async function deleteCommentPost(req, res, next) {
+  // From req: post_id, comment_id
+  // To database: comment_id
+
+  const { commentId, postId } = req.params;
+
+  try {
+    await db.deleteComment(commentId);
+    return res.redirect(`/view/posts/${postId}`);
+  } catch (err) {
+    next(err);
+  }
 }
 
 module.exports = {
+  validateNewComment,
   addCommentPost,
   deleteCommentPost,
 };
