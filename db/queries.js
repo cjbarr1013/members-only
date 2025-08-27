@@ -148,6 +148,14 @@ async function getUserInfoByUsername(username) {
   return rows[0];
 }
 
+async function getCommentById(id) {
+  const { rows } = await pool.query(`SELECT * FROM comments WHERE id = $1`, [
+    id,
+  ]);
+
+  return rows[0];
+}
+
 async function addUser(first, last, username, hashedPassword, admin) {
   const { rows } = await pool.query(
     `INSERT INTO users (first, last, username, password, admin) VALUES ($1, $2, $3, $4, $5) RETURNING *`,
@@ -171,10 +179,10 @@ async function addComment(message, postId, userId) {
   );
 }
 
-async function editUserInfo(id, picUrl, bio, loc, birthday) {
+async function editUserInfo(id, admin, picUrl, bio, loc, birthday) {
   await pool.query(
-    `UPDATE users SET pic_url = ($1), bio = ($2), loc = ($3), birthday = ($4) WHERE id = ($5)`,
-    [picUrl, bio, loc, birthday, id]
+    `UPDATE users SET admin = ($1), pic_url = ($2), bio = ($3), loc = ($4), birthday = ($5) WHERE id = ($6)`,
+    [admin, picUrl, bio, loc, birthday, id]
   );
 }
 
@@ -193,6 +201,7 @@ module.exports = {
   getUserById,
   getUserProfileByUsername,
   getUserInfoByUsername,
+  getCommentById,
   addUser,
   addPost,
   addComment,
