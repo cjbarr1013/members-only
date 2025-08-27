@@ -45,6 +45,7 @@ app.use(
 );
 
 require('./config/passport');
+app.use(passport.initialize());
 app.use(passport.session());
 
 // misc. middleware
@@ -73,8 +74,4 @@ app.use((err, req, res, next) => {
   return res.send(err.message);
 });
 
-// server
-const PORT = process.env.PORT || 8080;
-app.listen(PORT, () => {
-  console.log(`My first Express app - listening on port ${PORT}!`);
-});
+module.exports = app;

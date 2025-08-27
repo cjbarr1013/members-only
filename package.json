@@ -15,18 +15,21 @@
   "type": "commonjs",
   "main": "app.js",
   "scripts": {
-    "start": "node app.js",
-    "dev": "node --watch app.js",
-    "populate-db": "node db/populatedb.js",
-    "clear-db": "node db/cleardb.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "dev": "NODE_ENV=development && node --watch server.js",
+    "populate-db": "node db/populate.js",
+    "clear-db": "node db/clear.js",
+    "test": "NODE_ENV=test && jest --verbose --runInBand"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
     "eslint": "^9.32.0",
     "eslint-config-prettier": "^10.1.8",
     "globals": "^16.3.0",
-    "prettier": "^3.6.2"
+    "jest": "^29.7.0",
+    "prettier": "^3.6.2",
+    "superagent": "^10.2.3",
+    "supertest": "^7.1.4"
   },
   "dependencies": {
     "bcryptjs": "^3.0.2",
@@ -39,5 +42,9 @@
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.16.3"
+  },
+  "jest": {
+    "globalSetup": "./tests/globalSetup.js",
+    "globalTeardown": "./tests/globalTeardown.js"
   }
 }

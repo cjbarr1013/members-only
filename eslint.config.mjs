@@ -21,4 +21,12 @@ export default defineConfig([
     },
   },
   prettierConfig,
+  {
+    files: ['**/*.test.js', 'tests/**/*.js'],
+    languageOptions: {
+      globals: {
+        ...globals.jest,
+      },
+    },
+  },
 ]);

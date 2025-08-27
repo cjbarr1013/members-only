@@ -1,7 +1,10 @@
 const { Client } = require('pg');
-const { argv } = require('node:process');
 
-const SQL = `
+const clearSQL = `
+DROP TABLE IF EXISTS users, posts, comments, session CASCADE;
+`;
+
+const populateSQL = `
 CREATE TABLE IF NOT EXISTS users (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   first VARCHAR(50),
@@ -177,15 +180,29 @@ VALUES
   ('At least you tried something new - that''s more than a lot of people do. Cooking is all about experimenting and learning from mistakes. What went wrong exactly? Maybe we can help troubleshoot for next time.', 22, 15);
 `;
 
-async function main() {
-  console.log('seeding...');
+async function clear(connStr) {
+  console.log('clearing...');
   const client = new Client({
-    connectionString: argv[2],
+    connectionString: connStr,
   });
   await client.connect();
-  await client.query(SQL);
+  await client.query(clearSQL);
   await client.end();
   console.log('done');
 }
 
-main();
+async function populate(connStr) {
+  console.log('seeding...');
+  const client = new Client({
+    connectionString: connStr,
+  });
+  await client.connect();
+  await client.query(populateSQL);
+  await client.end();
+  console.log('done');
+}
+
+module.exports = {
+  clear,
+  populate,
+};
