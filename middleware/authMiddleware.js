@@ -30,16 +30,28 @@ function isAdmin(req, res, next) {
 
 async function isSameUser(req, res, next) {
   try {
+    if (!req.isAuthenticated()) {
+      const err = new Error('You must be signed in to complete this action.');
+      err.statusCode = 401;
+      return next(err);
+    }
+
     const userProfile = await db.getUserByUsername(req.params.username);
-    if (req.isAuthenticated() && req.user.id === userProfile.id) {
-      next();
-    } else {
+    if (!userProfile) {
+      const err = new Error('User not found');
+      err.status = err.statusCode = 404;
+      return next(err);
+    }
+
+    if (req.user.id !== userProfile.id) {
       const err = new Error(
         'You are attempting to access a protected page for another user. DENIED.'
       );
-      err.statusCode = 401;
-      next(err);
+      err.statusCode = 403;
+      return next(err);
     }
+
+    next();
   } catch (e) {
     next(e);
   }
