@@ -25,14 +25,14 @@ async function addCommentPost(req, res, next) {
     //   ...
     //   errors: errors.array(),
     // })
-    return;
+    return res.status(400).json({ errors: errors.array() });
   }
 
   try {
     await db.addComment(message, postId, req.user.id);
     return res.redirect(`/view/posts/${postId}`);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -46,7 +46,7 @@ async function deleteCommentPost(req, res, next) {
     await db.deleteComment(commentId);
     return res.redirect(`/view/posts/${postId}`);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 

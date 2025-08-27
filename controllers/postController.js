@@ -2,14 +2,14 @@ const { body, validationResult } = require('express-validator');
 const db = require('../db/queries');
 
 const validateNewPost = [
-  body('newPostTitle')
+  body('title')
     .trim()
     .notEmpty()
     .withMessage('You must enter a title for your post.')
     .bail()
     .isLength({ Max: 250 })
     .withMessage('Your post title cannot exceed 250 characters.'),
-  body('newPostMessage')
+  body('message')
     .trim()
     .notEmpty()
     .withMessage('You must enter a message for your post.'),
@@ -27,7 +27,7 @@ async function postsAllGet(req, res, next) {
     // })
     return res.send(posts);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -48,7 +48,7 @@ async function postByIdGet(req, res, next) {
     // })
     return res.send(post);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -65,14 +65,14 @@ async function addPostPost(req, res, next) {
     //   ...
     //   errors: errors.array(),
     // })
-    return;
+    return res.status(400).json({ errors: errors.array() });
   }
 
   try {
     await db.addPost(title, message, req.user.id);
     return res.redirect('/');
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -86,7 +86,7 @@ async function deletePostPost(req, res, next) {
     await db.deletePost(id);
     return res.redirect('/');
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 

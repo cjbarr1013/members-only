@@ -8,14 +8,14 @@ const validateNewUser = [
     .notEmpty()
     .withMessage('You must enter a first name.')
     .bail()
-    .isLength({ Max: 50 })
+    .isLength({ max: 50 })
     .withMessage('First name cannot exceed 50 characters.'),
   body('last')
     .trim()
     .notEmpty()
     .withMessage('You must enter a last name.')
     .bail()
-    .isLength({ Max: 50 })
+    .isLength({ max: 50 })
     .withMessage('Last name cannot exceed 50 characters.'),
   body('username')
     .trim()
@@ -76,11 +76,11 @@ const validateUserProfile = [
     .withMessage('Picture URL must be a valid URL.'),
   body('bio')
     .optional({ checkFalsy: true })
-    .isLength({ Max: 250 })
+    .isLength({ max: 250 })
     .withMessage('Bio cannot exceed 250 characters.'),
   body('loc')
     .optional({ checkFalsy: true })
-    .isLength({ Max: 50 })
+    .isLength({ max: 50 })
     .withMessage('Location cannot exceed 50 characters.'),
 ];
 
@@ -105,7 +105,7 @@ async function registerPost(req, res, next) {
     //   ...
     //   errors: errors.array(),
     // })
-    return;
+    return res.status(400).json({ errors: errors.array() });
   }
 
   try {
@@ -114,12 +114,12 @@ async function registerPost(req, res, next) {
 
     req.login(user, (err) => {
       if (err) {
-        next(err);
+        return next(err);
       }
       return res.redirect('/auth/register/profile');
     });
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -146,14 +146,21 @@ async function registerProfilePost(req, res, next) {
     //   ...
     //   errors: errors.array(),
     // })
-    return;
+    return res.status(400).json({ errors: errors.array() });
   }
 
   try {
-    await db.editUserProfile(req.user.id, picUrl, bio, loc, birthday);
+    await db.editUserInfo(
+      req.user.id,
+      req.user.admin,
+      picUrl,
+      bio,
+      loc,
+      birthday
+    );
     return res.redirect('/');
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -168,7 +175,7 @@ function loginGet(req, res) {
 function logoutGet(req, res, next) {
   req.logout((err) => {
     if (err) {
-      next(err);
+      return next(err);
     }
     return res.redirect('/');
   });
@@ -191,7 +198,7 @@ async function profileGet(req, res, next) {
     // })
     return res.send(userProfile);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -210,7 +217,7 @@ async function editProfileGet(req, res, next) {
     // })
     return res.send(userInfo);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
@@ -219,7 +226,7 @@ async function editProfilePost(req, res, next) {
   // From req: pic_url, bio, loc, birthday
   // To database: id, pic_url, bio, loc, birthday
 
-  const { picUrl, bio, loc, birthday } = req.body;
+  const { admin, picUrl, bio, loc, birthday } = req.body;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
@@ -227,14 +234,14 @@ async function editProfilePost(req, res, next) {
     //   ...
     //   errors: errors.array(),
     // })
-    return;
+    return res.status(400).json({ errors: errors.array() });
   }
 
   try {
-    await db.editUserInfo(req.user.id, picUrl, bio, loc, birthday);
+    await db.editUserInfo(req.user.id, admin, picUrl, bio, loc, birthday);
     return res.redirect(`/view/profile/${req.user.username}`);
   } catch (err) {
-    next(err);
+    return next(err);
   }
 }
 
