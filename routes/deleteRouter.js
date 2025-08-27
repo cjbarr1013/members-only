@@ -1,14 +1,14 @@
 const { Router } = require('express');
 const postController = require('../controllers/postController');
 const commentController = require('../controllers/commentController');
-const { isAuthAction } = require('../middleware/authMiddleware');
+const { isAdmin } = require('../middleware/authMiddleware');
 const deleteRouter = Router();
 
 // routes
-deleteRouter.post('/post/:id', isAuthAction, postController.deletePostPost);
+deleteRouter.post('/post/:id', isAdmin, postController.deletePostPost);
 deleteRouter.post(
   '/comment/:commentId/:postId',
-  isAuthAction,
+  isAdmin,
   commentController.deleteCommentPost
 );
 

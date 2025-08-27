@@ -33,6 +33,6 @@ authRouter.post(
   })
 );
 
-authRouter.get('/logout', isAuthAction, userController.logoutGet);
+authRouter.get('/logout', isAuthRoute, userController.logoutGet);
 
 module.exports = authRouter;
