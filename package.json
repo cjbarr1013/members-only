@@ -19,7 +19,7 @@
     "dev": "NODE_ENV=development && node --watch server.js",
     "populate-db": "node db/populate.js",
     "clear-db": "node db/clear.js",
-    "test": "NODE_ENV=test && jest --verbose --runInBand"
+    "test": "NODE_ENV=test && jest --verbose --runInBand --detectOpenHandles"
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
