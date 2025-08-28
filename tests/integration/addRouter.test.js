@@ -47,16 +47,18 @@ describe('addRouter', () => {
     it('creates a comment when authenticated', async () => {
       const { agent } = await registerAndLogin(app);
 
-      const beforePost = await db.getPostById(1);
+      const allPosts = await db.getAllPosts();
+      expect(allPosts.length).toBeGreaterThan(0);
+      const beforePost = allPosts[0];
 
       const res = await agent
-        .post(`/add/comment/1`)
+        .post(`/add/comment/${beforePost.id}`)
         .type('form')
         .send({ message: 'Nice post!' });
       // checks for successful POST and redirect
       expect([302, 303]).toContain(res.statusCode);
 
-      const afterPost = await db.getPostById(1);
+      const afterPost = await db.getPostById(beforePost.id);
 
       expect(
         parseInt(beforePost.comment_count) < parseInt(afterPost.comment_count)
@@ -64,8 +66,12 @@ describe('addRouter', () => {
     });
 
     it('returns 401 when not authenticated', async () => {
+      const allPosts = await db.getAllPosts();
+      expect(allPosts.length).toBeGreaterThan(0);
+      const post = allPosts[0];
+
       const res = await request(app)
-        .post(`/add/comment/1`)
+        .post(`/add/comment/${post.id}`)
         .type('form')
         .send({ message: 'Hi' });
 
@@ -75,8 +81,12 @@ describe('addRouter', () => {
     it('returns 400 when input not valid', async () => {
       const { agent } = await registerAndLogin(app);
 
+      const allPosts = await db.getAllPosts();
+      expect(allPosts.length).toBeGreaterThan(0);
+      const post = allPosts[0];
+
       const res = await agent
-        .post(`/add/comment/1`)
+        .post(`/add/comment/${post.id}`)
         .type('form')
         .send({ message: '' });
 
