@@ -1,0 +1,45 @@
+@import 'tailwindcss';
+@import 'flowbite/src/themes/default';
+@plugin "flowbite/plugin";
+@source "../node_modules/flowbite";
+/* If custom CSS classes are needed, write in separate file and import */
+
+@theme {
+  /* Override or define utility classes and theme variables */
+
+  /* 
+  --font-sans: 
+  --font-serif: 
+  --font-mono:
+  --color-mint-500:
+  --font-poppins: 
+  */
+  --color-blue-500: #ffffff;
+}
+
+@layer base {
+  /* If you want to add your own default base styles for specific HTML elements,
+  use the @layer directive to add those styles to Tailwind's 'base' layer 
+  i.e. h1, h2, etc. */
+}
+
+@layer components {
+  /* Use the components layer for any more complicated classes you want to 
+  add to your project that you'd still like to be able to override with utility classes. 
+  i.e. classes like 'card', 'btn', 'badge' */
+
+  /* 
+  .btn-primary {
+    @apply px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600;
+  }
+  .card {
+    @apply p-6 bg-white rounded-lg shadow-md;
+  } 
+  */
+}
+
+/* @utility tab-4 {
+  Use the @utility directive to add custom utilities to your project that work with 
+  variants like 'hover', 'focus' and 'lg'
+  tab-size: 4;
+} */

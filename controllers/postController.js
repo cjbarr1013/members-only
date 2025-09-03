@@ -21,11 +21,11 @@ async function postsAllGet(req, res, next) {
 
   try {
     const posts = await db.getAllPosts();
-    // return res.render('', {
-    //   title: '',
-    //   ...
-    // })
-    return res.send(posts);
+    return res.render('layouts/main', {
+      page: 'posts/all',
+      title: 'Homepage',
+      posts,
+    });
   } catch (err) {
     return next(err);
   }
