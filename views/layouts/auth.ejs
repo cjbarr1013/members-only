@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en" class="min-w-80 text-gray-900 dark:text-white">
+  <%- include('../partials/head') %>
+  <body
+    class="flex min-h-screen items-center bg-white px-4 py-8 md:px-8 dark:bg-gray-800"
+  >
+    <%- include(`../pages/auth/${page}`) %>
+    <!--prettier-ignore-->
+    <% if (page === 'register') { %>
+    <script src="/js/adminCheck.js" defer></script>
+    <% } %>
+  </body>
+</html>

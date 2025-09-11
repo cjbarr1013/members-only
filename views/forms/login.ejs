@@ -1,0 +1,14 @@
+<form action="/auth/login" method="post" class="flex flex-col gap-4">
+  <%- include('../components/formErrors') %>
+  <div class="flex flex-col gap-3">
+    <!-- prettier-ignore -->
+    <%- include('../components/formInput', {type: 'text', id: 'username', label: 'Username', value: formData.username}) %>
+    <%- include('../components/formInput', {type: 'password', id: 'password', label: 'Password', value: ''}) %>
+  </div>
+  <!-- prettier-ignore -->
+  <%- include('../components/button', {type: 'submit', label: 'Log In'}) %>
+  <div class="self-center">
+    <!-- prettier-ignore -->
+    <%- include('../components/basicLink', {href: '/auth/register', label: 'Create an account'}) %>
+  </div>
+</form>

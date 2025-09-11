@@ -50,25 +50,20 @@ const validateNewUser = [
       }
       return true;
     }),
-  body('admin')
+];
+
+const validateAdmin = [
+  body('adminValue')
     .trim()
+    .toLowerCase()
     .custom((value, { req }) => {
-      if (req.body.adminChecked && value !== process.env.ADMIN_SECRET_CODE) {
-        throw new Error('Incorrect secret code for admin privileges.');
-      }
-      return true;
+      if (!req.body.adminChecked) return true;
+      if (value === process.env.ADMIN_SECRET) return true;
+      throw new Error('Incorrect secret code for admin privileges.');
     }),
 ];
 
 const validateUserProfile = [
-  body('admin')
-    .trim()
-    .custom((value, { req }) => {
-      if (req.body.adminChecked && value !== process.env.ADMIN_SECRET_CODE) {
-        throw new Error('Incorrect secret code for admin privileges.');
-      }
-      return true;
-    }),
   body('picUrl')
     .trim()
     .optional({ checkFalsy: true })
@@ -82,14 +77,25 @@ const validateUserProfile = [
     .optional({ checkFalsy: true })
     .isLength({ max: 50 })
     .withMessage('Location cannot exceed 50 characters.'),
+  body('birthday')
+    .optional({ checkFalsy: true })
+    .isISO8601({ strict: true })
+    .withMessage('Birthday must be a valid date (YYYY-MM-DD).'),
 ];
 
 function registerGet(req, res) {
-  // return res.render('', {
-  //   title: '',
-  //   ...
-  // })
-  return res.send('get register form');
+  return res.render('layouts/auth', {
+    page: 'register',
+    title: 'Register',
+    errors: [],
+    formData: {
+      first: '',
+      last: '',
+      username: '',
+      adminChecked: false,
+      adminValue: '',
+    },
+  });
 }
 
 async function registerPost(req, res, next) {
@@ -97,20 +103,28 @@ async function registerPost(req, res, next) {
   // To database: first, last, username, hashed_password, admin
   // From database: user
 
-  const { first, last, username, password, admin } = req.body;
+  const { first, last, username, password, adminChecked, adminValue } =
+    req.body;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    // return res.status(400).render('', {
-    //   ...
-    //   errors: errors.array(),
-    // })
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).render('layouts/auth', {
+      page: 'register',
+      title: 'Register',
+      errors: errors.array(),
+      formData: { first, last, username, adminChecked, adminValue },
+    });
   }
 
   try {
     const hashedPassword = await bcrypt.hash(password, 10);
-    const user = await db.addUser(first, last, username, hashedPassword, admin);
+    const user = await db.addUser(
+      first,
+      last,
+      username,
+      hashedPassword,
+      adminChecked
+    );
 
     req.login(user, (err) => {
       if (err) {
@@ -126,11 +140,17 @@ async function registerPost(req, res, next) {
 function registerProfileGet(req, res) {
   // From locals: req.user.id
 
-  // return res.render('', {
-  //   title: '',
-  //   ...
-  // })
-  return res.send('get user profile form');
+  return res.render('layouts/auth', {
+    page: 'registerProfile',
+    title: 'Add Profile Info',
+    errors: [],
+    formData: {
+      picUrl: '',
+      bio: '',
+      loc: '',
+      birthday: '',
+    },
+  });
 }
 
 async function registerProfilePost(req, res, next) {
@@ -140,13 +160,20 @@ async function registerProfilePost(req, res, next) {
 
   const { picUrl, bio, loc, birthday } = req.body;
   const errors = validationResult(req);
+  if (!errors.isEmpty()) console.log(errors);
 
   if (!errors.isEmpty()) {
-    // return res.status(400).render('', {
-    //   ...
-    //   errors: errors.array(),
-    // })
-    return res.status(400).json({ errors: errors.array() });
+    return res.status(400).render('layouts/auth', {
+      page: 'registerProfile',
+      title: 'Add Profile Info',
+      errors: errors.array(),
+      formData: {
+        picUrl,
+        bio,
+        loc,
+        birthday,
+      },
+    });
   }
 
   try {
@@ -156,7 +183,7 @@ async function registerProfilePost(req, res, next) {
       picUrl,
       bio,
       loc,
-      birthday
+      birthday || null
     );
     return res.redirect('/');
   } catch (err) {
@@ -165,11 +192,16 @@ async function registerProfilePost(req, res, next) {
 }
 
 function loginGet(req, res) {
-  // return res.render('', {
-  //   title: '',
-  //   ...
-  // })
-  return res.send('get login form');
+  const attemptedUsername = req.session.attemptedUsername || '';
+  delete req.session.attemptedUsername;
+
+  return res.render('layouts/auth', {
+    page: 'login',
+    title: 'Log In',
+    formData: {
+      username: attemptedUsername,
+    },
+  });
 }
 
 function logoutGet(req, res, next) {
@@ -247,6 +279,7 @@ async function editProfilePost(req, res, next) {
 
 module.exports = {
   validateNewUser,
+  validateAdmin,
   validateUserProfile,
   registerGet,
   registerPost,

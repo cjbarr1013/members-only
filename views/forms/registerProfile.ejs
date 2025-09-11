@@ -1,0 +1,13 @@
+<form action="/auth/register/profile" method="post" class="flex flex-col gap-4">
+  <!--prettier-ignore-->
+  <%- include('../components/formErrors') %>
+  <%- include('../components/formInput', {type: 'url', id: 'picUrl', label: 'Avatar (url)', value: formData.loc}) %>
+  <%- include('../components/formTextarea', {id: 'bio', label: 'Bio', value: formData.bio, rows: 6, maxLength: 250}) %>
+  <%- include('../components/formInput', {type: 'text', id: 'loc', label: 'Location', value: formData.loc}) %>
+  <%- include('../components/formInput', {type: 'date', id: 'birthday', label: 'Birthday', value: formData.birthday}) %>
+  <%- include('../components/button', {type: 'submit', label: 'Save'}) %>
+  <div class="self-center">
+    <!-- prettier-ignore -->
+    <%- include('../components/basicLink', {href: '/', label: 'Skip'}) %>
+  </div>
+</form>

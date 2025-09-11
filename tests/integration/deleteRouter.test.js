@@ -22,7 +22,7 @@ describe('deleteRouter', () => {
     });
 
     it('does not delete post and returns 401 if not admin', async () => {
-      const { agent } = await registerAndLogin(app, false);
+      const { agent } = await registerAndLogin(app);
       const postsBefore = await db.getAllPosts();
       expect(postsBefore.length).toBeGreaterThan(0);
       const target = postsBefore[0];
@@ -63,7 +63,7 @@ describe('deleteRouter', () => {
     });
 
     it('does not delete comment and returns 401 if not admin', async () => {
-      const { agent } = await registerAndLogin(app, false);
+      const { agent } = await registerAndLogin(app);
 
       const posts = await db.getAllPosts();
       const postWithComments = posts.find((p) => p.comment_count > 0);

@@ -1,0 +1,63 @@
+<div class="flex items-center">
+  <div class="ms-3 flex items-center">
+    <div>
+      <button
+        type="button"
+        class="flex cursor-pointer rounded-lg bg-white text-sm hover:bg-gray-300 focus:ring-4 focus:ring-gray-300 dark:bg-gray-800 dark:hover:bg-gray-600 dark:focus:ring-gray-600"
+        aria-expanded="false"
+        data-dropdown-toggle="dropdown-user"
+      >
+        <span class="sr-only">Open user menu</span>
+        <div class="flex items-center gap-2 px-2 py-1">
+          <img
+            class="h-10 w-10 rounded-lg object-cover"
+            src="<%= currentUser.pic_url %>"
+            alt="user photo"
+            loading="lazy"
+            width="40"
+            height="40"
+          />
+          <div class="flex flex-col items-start font-medium dark:text-white">
+            <div>
+              <%= `${currentUser.first || ''} ${currentUser.last || ''}` %>
+            </div>
+            <div class="text-sm text-gray-500 dark:text-gray-400">
+              <%= `@${currentUser.username}` %>
+            </div>
+          </div>
+        </div>
+      </button>
+    </div>
+    <div
+      class="z-50 my-4 hidden min-w-44 list-none divide-y divide-gray-100 rounded-lg bg-white text-base shadow-sm dark:divide-gray-600 dark:bg-gray-700"
+      id="dropdown-user"
+    >
+      <ul class="py-1" role="none">
+        <li>
+          <a
+            href="/view/profile/<%= currentUser.username %>"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+            role="menuitem"
+            >Profile</a
+          >
+        </li>
+        <li>
+          <a
+            href="/edit/profile/<%= currentUser.username %>"
+            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+            role="menuitem"
+            >Settings</a
+          >
+        </li>
+      </ul>
+      <div class="py-1" role="none">
+        <a
+          href="/auth/logout"
+          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+          role="menuitem"
+          >Sign Out</a
+        >
+      </div>
+    </div>
+  </div>
+</div>

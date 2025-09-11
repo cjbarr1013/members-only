@@ -57,9 +57,26 @@ async function isSameUser(req, res, next) {
   }
 }
 
+function normalizeCheckbox(req, res, next) {
+  if (typeof req.body.adminChecked !== 'undefined') {
+    req.body.adminChecked = true;
+  } else {
+    req.body.adminChecked = false;
+  }
+
+  next();
+}
+
+function verifyAdminValueNotUndef(req, res, next) {
+  if (typeof req.body.adminValue === 'undefined') req.body.adminValue = '';
+  next();
+}
+
 module.exports = {
   isAuthAction,
   isAuthRoute,
   isAdmin,
   isSameUser,
+  normalizeCheckbox,
+  verifyAdminValueNotUndef,
 };

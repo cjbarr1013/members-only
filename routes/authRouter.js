@@ -1,14 +1,22 @@
 const { Router } = require('express');
 const passport = require('passport');
 const userController = require('../controllers/userController');
-const { isAuthAction, isAuthRoute } = require('../middleware/authMiddleware');
+const {
+  isAuthAction,
+  isAuthRoute,
+  normalizeCheckbox,
+  verifyAdminValueNotUndef,
+} = require('../middleware/authMiddleware');
 const authRouter = Router();
 
 // routes
 authRouter.get('/register', userController.registerGet);
 authRouter.post(
   '/register',
+  normalizeCheckbox,
+  verifyAdminValueNotUndef,
   userController.validateNewUser,
+  userController.validateAdmin,
   userController.registerPost
 );
 
@@ -30,6 +38,7 @@ authRouter.post(
   passport.authenticate('local', {
     successRedirect: '/',
     failureRedirect: '/auth/login',
+    failureFlash: true,
   })
 );
 

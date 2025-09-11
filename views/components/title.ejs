@@ -1,0 +1,39 @@
+<% if (size === 'sm') { %>
+<a href="/view/posts" class="ms-2 flex sm:gap-2">
+  <svg class="h-8 w-8" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg">
+    <rect width="512" height="512" rx="40" fill="#1877F2" />
+    <g transform="translate(20, 10)">
+      <path
+        d="M280 120h-48v180c0 25-10 35-30 35-12 0-22-2-30-6v46c10 4 24 7 42 7 25 0 46-6 61-21 14-13 21-32 21-57V120z"
+        fill="white"
+      />
+    </g>
+  </svg>
+
+  <span
+    class="text-logo-500 hidden self-center text-xl font-semibold whitespace-nowrap sm:block sm:text-2xl dark:text-white"
+    >Jacebook</span
+  >
+</a>
+<% } else if (size === 'lg') { %>
+<h1 class="flex gap-4">
+  <svg
+    class="h-14 w-14"
+    viewBox="0 0 512 512"
+    xmlns="http://www.w3.org/2000/svg"
+  >
+    <rect width="512" height="512" rx="40" fill="#1877F2" />
+    <g transform="translate(20, 10)">
+      <path
+        d="M280 120h-48v180c0 25-10 35-30 35-12 0-22-2-30-6v46c10 4 24 7 42 7 25 0 46-6 61-21 14-13 21-32 21-57V120z"
+        fill="white"
+      />
+    </g>
+  </svg>
+
+  <span
+    class="text-logo-500 text-5xl font-semibold whitespace-nowrap dark:text-white"
+    >Jacebook</span
+  >
+</h1>
+<% } %>

@@ -1,0 +1,27 @@
+<!-- prettier-ignore -->
+<% const sidebarLinks = currentUser ? 
+  [
+    {href: '/view/posts', icon: 'home', label: 'Home'}, 
+    {href: `/view/profile/${currentUser.username}`, icon: 'profile', label: 'Profile'}, 
+    {href: `/edit/profile/${currentUser.username}`, icon: 'settings', label: 'Settings'},
+  ] : [
+    {href: '/view/posts', icon: 'home', label: 'Home'}, 
+    {href: `/auth/login/`, icon: 'profile', label: 'Profile'}, 
+    {href: `/auth/login/`, icon: 'settings', label: 'Settings'},
+  ] 
+%>
+
+<aside
+  id="logo-sidebar"
+  class="fixed top-0 left-0 z-40 h-full w-64 -translate-x-full border-r border-gray-200 bg-white pt-20 transition-transform sm:translate-x-0 dark:border-gray-700 dark:bg-gray-800"
+  aria-label="Sidebar"
+>
+  <div class="h-full overflow-y-auto bg-white px-3 pb-4 dark:bg-gray-800">
+    <ul class="space-y-2 font-medium">
+      <!-- prettier-ignore -->
+      <% sidebarLinks.forEach(link => { %> 
+        <%- include('../components/sidebarLink', {href: link.href, icon: link.icon, label: link.label}) %> 
+      <% }); %>
+    </ul>
+  </div>
+</aside>

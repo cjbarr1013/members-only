@@ -4,6 +4,8 @@ const {
   isAuthAction,
   isAuthRoute,
   isSameUser,
+  normalizeCheckbox,
+  verifyAdminValueNotUndef,
 } = require('../middleware/authMiddleware');
 const editRouter = Router();
 
@@ -18,6 +20,9 @@ editRouter.post(
   '/profile/:username',
   isAuthAction,
   isSameUser,
+  normalizeCheckbox,
+  verifyAdminValueNotUndef,
+  userController.validateAdmin,
   userController.validateUserProfile,
   userController.editProfilePost
 );

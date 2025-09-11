@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const passport = require('passport');
+const flash = require('connect-flash');
 const session = require('express-session');
 const pgSession = require('connect-pg-simple')(session);
 const pool = require('./db/pool');
@@ -47,10 +48,12 @@ app.use(
 require('./config/passport');
 app.use(passport.initialize());
 app.use(passport.session());
+app.use(flash());
 
-// misc. middleware
+// misc. middleware and variables
 app.use((req, res, next) => {
   res.locals.currentUser = req.user;
+  res.locals.messages = req.flash();
   next();
 });
 

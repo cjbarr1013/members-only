@@ -1,7 +1,7 @@
 const request = require('supertest');
 
 // Register user and keep session with Supertest agent
-async function registerAndLogin(app, admin = false) {
+async function registerAndLogin(app, admin = undefined) {
   const username = `u${Math.floor(Math.random() * 10000000000)}`;
   const agent = request.agent(app);
   const res = await agent
@@ -13,7 +13,8 @@ async function registerAndLogin(app, admin = false) {
       username,
       password: 'Password123!',
       passwordVerify: 'Password123!',
-      admin,
+      adminChecked: admin,
+      adminValue: process.env.ADMIN_SECRET,
     });
 
   return { agent, res, username };

@@ -24,12 +24,56 @@ describe('authRouter', () => {
           username,
           password: 'Password123!',
           passwordVerify: 'Password123!',
-          admin: false,
+          adminChecked: undefined,
+          adminValue: '',
         });
 
       expect([302, 303]).toContain(res.statusCode);
       const user = await db.getUserByUsername(username);
       expect(user).toBeTruthy();
+    });
+
+    it('creates user with admin privleges when secret code is correct', async () => {
+      const username = `u${Math.floor(Math.random() * 10000000000)}`;
+      const agent = request.agent(app);
+      const res = await agent
+        .post('/auth/register') // user is signed in on sign up
+        .type('form')
+        .send({
+          first: 'Test',
+          last: 'User',
+          username,
+          password: 'Password123!',
+          passwordVerify: 'Password123!',
+          adminChecked: true,
+          adminValue: process.env.ADMIN_SECRET,
+        });
+
+      expect([302, 303]).toContain(res.statusCode);
+      const user = await db.getUserByUsername(username);
+      expect(user).toBeTruthy();
+      expect(user.admin).toBeTruthy();
+    });
+
+    it('returns 400 when admin secret code is not correct', async () => {
+      const username = `u${Math.floor(Math.random() * 10000000000)}`;
+      const agent = request.agent(app);
+      const res = await agent
+        .post('/auth/register') // user is signed in on sign up
+        .type('form')
+        .send({
+          first: 'Test',
+          last: 'User',
+          username,
+          password: 'Password123!',
+          passwordVerify: 'Password123!',
+          adminChecked: true,
+          adminValue: 'wrongValue',
+        });
+
+      expect(res.statusCode).toBe(400);
+      const user = await db.getUserByUsername(username);
+      expect(user).toBeFalsy();
     });
 
     it('user is logged in after successful post request', async () => {
@@ -41,7 +85,8 @@ describe('authRouter', () => {
         username,
         password: 'Password123!',
         passwordVerify: 'Password123!',
-        admin: false,
+        adminChecked: undefined,
+        adminValue: '',
       });
       expect([302, 303]).toContain(res.statusCode);
 
@@ -59,7 +104,8 @@ describe('authRouter', () => {
         username: badUsername,
         password: 'short', // invalid
         passwordVerify: 'different', // mismatch
-        admin: false,
+        adminChecked: false,
+        adminValue: '',
       });
 
       expect(res.statusCode).toBe(400);
