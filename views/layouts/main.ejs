@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" class="min-w-80 text-gray-900 dark:text-white">
   <%- include('../partials/head') %>
-  <body class="flex h-screen flex-col bg-white dark:bg-gray-800">
+  <body class="flex min-h-screen flex-col bg-white dark:bg-gray-800">
     <%- include('../partials/nav') %>
 
     <!-- Main content container -->
     <div class="grow">
       <%- include('../partials/sidebar') %>
-      <div class="min-h-full bg-white p-4 sm:ml-64">
+      <div class="min-h-full bg-white p-4 text-gray-900 sm:ml-64">
         <%- include(`../pages/${page}`) %>
       </div>
     </div>

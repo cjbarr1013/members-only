@@ -1,0 +1,18 @@
+<article class="post-card">
+  <a href="/view/profile/<%= post.username %>" class="flex items-center gap-2">
+    <img
+      class="h-8 w-8 rounded-lg object-cover"
+      src="<%= reconfigureImage(post.pic_url, 'sm', post.username) %>"
+      alt="user photo"
+      loading="lazy"
+      width="32"
+      height="32"
+    />
+    <div><%= post.username %></div>
+  </a>
+  <div><%= post.admin %></div>
+  <div><%= post.title %></div>
+  <div><%= post.message %></div>
+  <div><%= post.comment_count %><span> comments</span></div>
+  <div><%= post.added %></div>
+</article>

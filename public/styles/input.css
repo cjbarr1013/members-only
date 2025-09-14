@@ -32,6 +32,10 @@
   add to your project that you'd still like to be able to override with utility classes. 
   i.e. classes like 'card', 'btn', 'badge' */
 
+  .post-card {
+    @apply w-full rounded-lg border border-gray-300 bg-white p-4 text-gray-900 dark:border-gray-700;
+  }
+
   .form-card {
     @apply w-full max-w-130 rounded-lg border border-gray-300 bg-white p-4 text-gray-900 min-[500px]:p-8 dark:border-gray-700;
   }
