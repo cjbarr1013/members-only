@@ -11,7 +11,7 @@
         <div class="flex items-center gap-2 px-2 py-1">
           <img
             class="h-10 w-10 rounded-lg object-cover"
-            src="<%= currentUser.pic_url %>"
+            src="<%= reconfigureImage(currentUser.pic_url, 'sm', currentUser.username) %>"
             alt="user photo"
             loading="lazy"
             width="40"
