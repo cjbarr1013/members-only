@@ -44,7 +44,8 @@ async function getPostById(id) {
             'admin', cu.admin
           )
           ORDER BY c.added
-        ), '[]'::json
+        ) FILTER (WHERE c.id IS NOT NULL), 
+        '[]'::json
       ) AS post_comments,
       COUNT(c.id) AS comment_count,
       u.username,
