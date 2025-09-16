@@ -2,6 +2,7 @@
 @import 'flowbite/src/themes/default';
 @plugin "flowbite/plugin";
 @source "../node_modules/flowbite";
+@custom-variant dark (&:where(.dark, .dark *));
 /* If custom CSS classes are needed, write in separate file and import */
 
 @theme {
@@ -33,7 +34,7 @@
   i.e. classes like 'card', 'btn', 'badge' */
 
   .post-card {
-    @apply w-full rounded-lg border border-gray-300 bg-white p-4 text-gray-900 dark:border-gray-700;
+    @apply flex w-full flex-col justify-between gap-4 rounded-lg bg-white p-4 text-gray-900 shadow-md/20 dark:bg-gray-800 dark:text-white dark:shadow-md/50;
   }
 
   .form-card {
