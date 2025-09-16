@@ -12,7 +12,7 @@ const deleteRouter = require('./routes/deleteRouter');
 const editRouter = require('./routes/editRouter');
 const indexRouter = require('./routes/indexRouter');
 const viewRouter = require('./routes/viewRouter');
-const { reconfigureImage } = require('./utils/helpers');
+const { reconfigureImage, formatDate } = require('./utils/helpers');
 
 // app initialization
 const app = express();
@@ -56,6 +56,7 @@ app.use((req, res, next) => {
   res.locals.currentUser = req.user;
   res.locals.messages = req.flash();
   res.locals.reconfigureImage = reconfigureImage;
+  res.locals.formatDate = formatDate;
   next();
 });
 

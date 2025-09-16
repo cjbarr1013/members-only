@@ -1,3 +1,5 @@
+const { format } = require('date-fns');
+
 function reconfigureImage(url, size = 'sm', username = 'default') {
   const sizes = { sm: 100, lg: 300 };
 
@@ -19,6 +21,17 @@ function reconfigureImage(url, size = 'sm', username = 'default') {
   }
 }
 
+function formatDate(date, use = 'timestamp') {
+  if (use === 'timestamp') {
+    return format(new Date(date), 'hh:mm aaa · M/d/yy');
+  }
+  if (use === 'birthday') {
+    return format(new Date(date), 'LLLL do, y');
+  }
+  return date;
+}
+
 module.exports = {
   reconfigureImage,
+  formatDate,
 };
