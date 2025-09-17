@@ -34,7 +34,7 @@
   i.e. classes like 'card', 'btn', 'badge' */
 
   .post-card {
-    @apply flex w-full flex-col justify-between gap-4 rounded-lg bg-white p-4 text-gray-900 shadow-md/20 dark:bg-gray-800 dark:text-white dark:shadow-md/50;
+    @apply w-full rounded-lg bg-white p-4 text-gray-900 shadow-md/20 dark:bg-gray-800 dark:text-white dark:shadow-md/50;
   }
 
   .form-card {

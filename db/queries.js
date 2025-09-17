@@ -30,6 +30,7 @@ async function getPostById(id) {
   const { rows } = await pool.query(
     `
     SELECT
+      p.id,
       p.title,
       p.message,
       p.added,
@@ -43,7 +44,7 @@ async function getPostById(id) {
             'pic_url', cu.pic_url,
             'admin', cu.admin
           )
-          ORDER BY c.added
+          ORDER BY c.id DESC
         ) FILTER (WHERE c.id IS NOT NULL), 
         '[]'::json
       ) AS post_comments,
@@ -56,7 +57,7 @@ async function getPostById(id) {
     LEFT JOIN comments c ON c.post_id = p.id
     LEFT JOIN users cu ON cu.id = c.user_id
     WHERE p.id = $1
-    GROUP BY p.title, p.message, p.added, u.username, u.pic_url, u.admin
+    GROUP BY p.id, p.title, p.message, p.added, u.username, u.pic_url, u.admin
     `,
     [id]
   );

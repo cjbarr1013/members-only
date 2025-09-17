@@ -5,14 +5,13 @@
     <%- include('../partials/nav') %>
 
     <!-- Main content container -->
-    <div class="grow">
+    <div class="flex flex-1 flex-col">
       <%- include('../partials/sidebar') %>
-      <div
-        class="min-h-full bg-white p-4 text-gray-900 sm:ml-64 dark:bg-gray-800"
-      >
+      <main class="flex min-h-0 flex-1 p-4 text-gray-900 sm:ml-64">
         <%- include(`../pages/${page}`) %>
-      </div>
+      </main>
     </div>
+
     <script src="/js/darkModeToggle.js"></script>
     <% if (page === 'profile/edit') { %>
     <script src="/js/adminCheck.js"></script>

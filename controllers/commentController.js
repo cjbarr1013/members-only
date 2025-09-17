@@ -8,7 +8,7 @@ const validateNewComment = [
     .withMessage('You must enter a comment.')
     .bail()
     .isLength({ max: 2000 })
-    .withMessage('Length of name cannot exceed 50 characters.'),
+    .withMessage('Length of comment cannot exceed 2000 characters.'),
 ];
 
 async function addCommentPost(req, res, next) {
@@ -21,11 +21,14 @@ async function addCommentPost(req, res, next) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    // return res.status(400).render('', {
-    //   ...
-    //   errors: errors.array(),
-    // })
-    return res.status(400).json({ errors: errors.array() });
+    const post = await db.getPostById(postId);
+    return res.status(400).render('layouts/main', {
+      page: 'posts/byId',
+      title: post.title,
+      post,
+      commentValue: message,
+      errors: errors.array(),
+    });
   }
 
   try {

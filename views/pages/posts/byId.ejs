@@ -1,0 +1,31 @@
+<div class="flex w-full flex-col gap-4 xl:h-[calc(100vh_-_96px)] xl:flex-row">
+  <% console.log(post) %>
+  <div
+    class="-mx-3 -mb-3 flex flex-col gap-4 overflow-y-auto px-3 pb-3 xl:flex-1"
+  >
+    <!--prettier-ignore-->
+    <%- include('../../components/postCardById', {post}) %>
+    <%- include('../../forms/comment', {postId: post.id}) %>
+  </div>
+  <hr
+    class="h-px border-0 bg-gray-300 xl:h-full xl:w-px xl:flex-none xl:self-stretch dark:bg-gray-600"
+  />
+  <!--prettier-ignore-->
+  <% if (post.post_comments.length > 0) { %>
+  <div
+    class="-mx-3 -mb-3 flex flex-col justify-start gap-2 overflow-x-visible overflow-y-auto px-3 pb-3 xl:flex-1"
+  >
+    <% post.post_comments.forEach(comment => { %>
+    <!--prettier-ignore-->
+    <%- include('../../components/commentCardById', {comment}) %>
+  <% }) %>
+  </div>
+  <% } else { %>
+  <div class="flex items-center justify-center xl:flex-1">
+    <p class="px-2 py-4 text-center">
+      Leave the first comment! What are you waiting for?
+    </p>
+  </div>
+
+  <% } %>
+</div>

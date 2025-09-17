@@ -42,11 +42,12 @@ async function postByIdGet(req, res, next) {
 
   try {
     const post = await db.getPostById(id);
-    // return res.render('', {
-    //   title: '',
-    //   ...
-    // })
-    return res.send(post);
+    return res.render('layouts/main', {
+      page: 'posts/byId',
+      title: post.title,
+      post,
+      commentValue: '',
+    });
   } catch (err) {
     return next(err);
   }
