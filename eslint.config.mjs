@@ -5,7 +5,7 @@ import prettierConfig from 'eslint-config-prettier';
 
 export default defineConfig([
   {
-    ignores: ['node_modules/*'],
+    ignores: ['node_modules/*', 'public/js/flowbite.min.js'],
   },
   {
     files: ['**/*.{js,mjs,cjs}'],
