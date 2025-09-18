@@ -224,11 +224,11 @@ async function profileGet(req, res, next) {
 
   try {
     const userProfile = await db.getUserProfileByUsername(username);
-    // return res.render('', {
-    //   title: '',
-    //   ...
-    // })
-    return res.send(userProfile);
+    return res.render('layouts/main', {
+      page: 'profile/view',
+      title: `${username}'s Profile`,
+      user: userProfile,
+    });
   } catch (err) {
     return next(err);
   }

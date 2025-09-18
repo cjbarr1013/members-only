@@ -201,6 +201,9 @@
   }
 }
 @layer utilities {
+  .\@container {
+    container-type: inline-size;
+  }
   .collapse {
     visibility: collapse;
   }
@@ -377,6 +380,9 @@
   .h-16 {
     height: calc(var(--spacing) * 16);
   }
+  .h-30 {
+    height: calc(var(--spacing) * 30);
+  }
   .h-full {
     height: 100%;
   }
@@ -413,6 +419,9 @@
   .w-14 {
     width: calc(var(--spacing) * 14);
   }
+  .w-30 {
+    width: calc(var(--spacing) * 30);
+  }
   .w-64 {
     width: calc(var(--spacing) * 64);
   }
@@ -421,6 +430,9 @@
   }
   .max-w-130 {
     max-width: calc(var(--spacing) * 130);
+  }
+  .max-w-150 {
+    max-width: calc(var(--spacing) * 150);
   }
   .min-w-44 {
     min-width: calc(var(--spacing) * 44);
@@ -1532,6 +1544,21 @@
   .\32 xl\:w-\[calc\(\(100\%-16px\)\/3\)\] {
     @media (width >= 96rem) {
       width: calc((100% - 16px) / 3);
+    }
+  }
+  .\@xs\:block {
+    @container (width >= 20rem) {
+      display: block;
+    }
+  }
+  .\@xs\:flex-row {
+    @container (width >= 20rem) {
+      flex-direction: row;
+    }
+  }
+  .\@xs\:gap-2 {
+    @container (width >= 20rem) {
+      gap: calc(var(--spacing) * 2);
     }
   }
   .rtl\:rotate-180 {

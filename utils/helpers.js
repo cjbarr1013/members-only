@@ -26,7 +26,7 @@ function formatDate(date, use = 'timestamp') {
     return format(new Date(date), 'hh:mm aaa · M/d/yy');
   }
   if (use === 'birthday') {
-    return format(new Date(date), 'LLLL do, y');
+    return format(new Date(date), 'MMM do, y');
   }
   return date;
 }

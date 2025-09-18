@@ -83,13 +83,16 @@ async function getUserProfileByUsername(username) {
   const { rows } = await pool.query(
     `
     SELECT
-      u.first,
-      u.last,
-      u.admin,
-      u.pic_url,
-      u.bio,
-      u.loc,
-      u.birthday,
+      JSON_BUILD_OBJECT(
+        'username', u.username,
+        'first', u.first,
+        'last', u.last,
+        'admin', u.admin,
+        'pic_url', u.pic_url,
+        'bio', u.bio,
+        'loc', u.loc,
+        'birthday', u.birthday
+      ) AS info,
       COALESCE(posts_agg.posts, '[]'::json) AS posts,
       COALESCE(comments_agg.comments, '[]'::json) AS comments,
       COALESCE(comments_agg.comment_count, 0) AS comment_count,
