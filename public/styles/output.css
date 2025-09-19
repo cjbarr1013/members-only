@@ -578,6 +578,9 @@
   .gap-4 {
     gap: calc(var(--spacing) * 4);
   }
+  .gap-6 {
+    gap: calc(var(--spacing) * 6);
+  }
   .gap-8 {
     gap: calc(var(--spacing) * 8);
   }
@@ -1602,6 +1605,11 @@
       margin-bottom: calc(var(--spacing) * -3);
     }
   }
+  .xl\:mb-4 {
+    @media (width >= 80rem) {
+      margin-bottom: calc(var(--spacing) * 4);
+    }
+  }
   .xl\:block {
     @media (width >= 80rem) {
       display: block;
@@ -1615,21 +1623,6 @@
   .xl\:hidden {
     @media (width >= 80rem) {
       display: none;
-    }
-  }
-  .xl\:h-9\/12 {
-    @media (width >= 80rem) {
-      height: calc(9/12 * 100%);
-    }
-  }
-  .xl\:h-10\/12 {
-    @media (width >= 80rem) {
-      height: calc(10/12 * 100%);
-    }
-  }
-  .xl\:h-11\/12 {
-    @media (width >= 80rem) {
-      height: calc(11/12 * 100%);
     }
   }
   .xl\:h-\[calc\(100vh_-_96px\)\] {
@@ -1667,6 +1660,11 @@
       flex: none;
     }
   }
+  .xl\:scroll-pt-4 {
+    @media (width >= 80rem) {
+      scroll-padding-top: calc(var(--spacing) * 4);
+    }
+  }
   .xl\:flex-col {
     @media (width >= 80rem) {
       flex-direction: column;
@@ -1702,19 +1700,9 @@
       overflow: hidden;
     }
   }
-  .xl\:overflow-x-visible {
+  .xl\:overflow-y-scroll {
     @media (width >= 80rem) {
-      overflow-x: visible;
-    }
-  }
-  .xl\:overflow-y-auto {
-    @media (width >= 80rem) {
-      overflow-y: auto;
-    }
-  }
-  .xl\:overflow-y-hidden {
-    @media (width >= 80rem) {
-      overflow-y: hidden;
+      overflow-y: scroll;
     }
   }
   .xl\:border-0 {
@@ -1733,6 +1721,11 @@
       padding-inline: calc(var(--spacing) * 3);
     }
   }
+  .xl\:pt-4 {
+    @media (width >= 80rem) {
+      padding-top: calc(var(--spacing) * 4);
+    }
+  }
   .xl\:pb-3 {
     @media (width >= 80rem) {
       padding-bottom: calc(var(--spacing) * 3);
@@ -1748,6 +1741,11 @@
     @media (width >= 80rem) {
       --tw-font-weight: var(--font-weight-semibold);
       font-weight: var(--font-weight-semibold);
+    }
+  }
+  .xl\:\[scrollbar-gutter\:stable\] {
+    @media (width >= 80rem) {
+      scrollbar-gutter: stable;
     }
   }
   .\32 xl\:w-\[calc\(\(100\%-16px\)\/3\)\] {
