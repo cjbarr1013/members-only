@@ -2,8 +2,8 @@
   <%- include('../components/formErrors') %>
   <div class="flex flex-col gap-3">
     <!-- prettier-ignore -->
-    <%- include('../components/formInput', {type: 'text', id: 'username', label: 'Username', value: formData.username}) %>
-    <%- include('../components/formInput', {type: 'password', id: 'password', label: 'Password', value: ''}) %>
+    <%- include('../components/formInput', {type: 'text', id: 'username', label: 'Username', value: formData.username, required: false}) %>
+    <%- include('../components/formInput', {type: 'password', id: 'password', label: 'Password', value: '', required: false}) %>
   </div>
   <!-- prettier-ignore -->
   <%- include('../components/button', {type: 'submit', label: 'Log In'}) %>

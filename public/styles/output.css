@@ -7,6 +7,7 @@
       "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
     --font-mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono",
       "Courier New", monospace;
+    --color-red-500: #EF4444;
     --color-red-600: #DC2626;
     --color-blue-300: #93C5FD;
     --color-blue-500: #3B82F6;
@@ -319,6 +320,12 @@
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
+  .line-clamp-1 {
+    overflow: hidden;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 1;
+  }
   .line-clamp-3 {
     overflow: hidden;
     display: -webkit-box;
@@ -421,9 +428,6 @@
   .w-30 {
     width: calc(var(--spacing) * 30);
   }
-  .w-48 {
-    width: calc(var(--spacing) * 48);
-  }
   .w-56 {
     width: calc(var(--spacing) * 56);
   }
@@ -438,6 +442,9 @@
   }
   .max-w-150 {
     max-width: calc(var(--spacing) * 150);
+  }
+  .max-w-\[450px\] {
+    max-width: 450px;
   }
   .min-w-44 {
     min-width: calc(var(--spacing) * 44);
@@ -878,6 +885,9 @@
   .px-5 {
     padding-inline: calc(var(--spacing) * 5);
   }
+  .px-6 {
+    padding-inline: calc(var(--spacing) * 6);
+  }
   .py-0\.5 {
     padding-block: calc(var(--spacing) * 0.5);
   }
@@ -1037,6 +1047,10 @@
   }
   .shadow-sm {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .shadow-xs {
+    --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .blur {
@@ -1274,6 +1288,30 @@
       }
     }
   }
+  .first\:rounded-s-lg {
+    &:first-child {
+      border-start-start-radius: var(--radius-lg);
+      border-end-start-radius: var(--radius-lg);
+    }
+  }
+  .first\:border {
+    &:first-child {
+      border-style: var(--tw-border-style);
+      border-width: 1px;
+    }
+  }
+  .last\:rounded-e-lg {
+    &:last-child {
+      border-start-end-radius: var(--radius-lg);
+      border-end-end-radius: var(--radius-lg);
+    }
+  }
+  .last\:border {
+    &:last-child {
+      border-style: var(--tw-border-style);
+      border-width: 1px;
+    }
+  }
   .hover\:border-gray-300 {
     &:hover {
       @media (hover: hover) {
@@ -1375,6 +1413,11 @@
       border-color: var(--color-blue-600);
     }
   }
+  .focus\:text-blue-700 {
+    &:focus {
+      color: var(--color-blue-700);
+    }
+  }
   .focus\:ring-0 {
     &:focus {
       --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(0px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
@@ -1401,6 +1444,11 @@
   .focus\:ring-blue-600 {
     &:focus {
       --tw-ring-color: var(--color-blue-600);
+    }
+  }
+  .focus\:ring-blue-700 {
+    &:focus {
+      --tw-ring-color: var(--color-blue-700);
     }
   }
   .focus\:ring-gray-100 {
@@ -1439,19 +1487,9 @@
       flex-direction: row;
     }
   }
-  .sm\:ml-48 {
-    @media (width >= 40rem) {
-      margin-left: calc(var(--spacing) * 48);
-    }
-  }
   .sm\:ml-56 {
     @media (width >= 40rem) {
       margin-left: calc(var(--spacing) * 56);
-    }
-  }
-  .sm\:ml-64 {
-    @media (width >= 40rem) {
-      margin-left: calc(var(--spacing) * 64);
     }
   }
   .sm\:block {
@@ -1519,6 +1557,11 @@
   .lg\:w-64 {
     @media (width >= 64rem) {
       width: calc(var(--spacing) * 64);
+    }
+  }
+  .lg\:w-\[150px\] {
+    @media (width >= 64rem) {
+      width: 150px;
     }
   }
   .lg\:w-\[calc\(\(100\%-8px\)\/2\)\] {
@@ -1799,6 +1842,20 @@
       }
     }
   }
+  .dark\:focus\:text-white {
+    &:where(.dark, .dark *) {
+      &:focus {
+        color: var(--color-white);
+      }
+    }
+  }
+  .dark\:focus\:ring-blue-500 {
+    &:where(.dark, .dark *) {
+      &:focus {
+        --tw-ring-color: var(--color-blue-500);
+      }
+    }
+  }
   .dark\:focus\:ring-gray-600 {
     &:where(.dark, .dark *) {
       &:focus {
@@ -1811,6 +1868,11 @@
       &:focus {
         --tw-ring-color: var(--color-gray-700);
       }
+    }
+  }
+  .\[\&\>\*\]\:flex-1 {
+    &>* {
+      flex: 1;
     }
   }
   .\[\&\>\*\:first-child\]\:-mt-2 {
@@ -1827,6 +1889,21 @@
 @layer base {
   button {
     cursor: pointer;
+  }
+  :required + label {
+    &::after {
+      content: var(--tw-content);
+      margin-left: calc(var(--spacing) * 0.5);
+    }
+    &::after {
+      content: var(--tw-content);
+      color: var(--color-red-500);
+    }
+    &::after {
+      content: var(--tw-content);
+      --tw-content: '*';
+      content: var(--tw-content);
+    }
   }
 }
 @layer components {
