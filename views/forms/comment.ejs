@@ -15,5 +15,7 @@
   >
 <%= commentValue %></textarea
   >
-  <%- include('../components/button', {type: 'submit', label: 'Submit'}) %>
+  <div class="flex self-end w-full lg:w-[150px] [&>*]:flex-1">
+    <%- include('../components/button', {type: 'submit', label: 'Submit'}) %>
+  </div>
 </form>
