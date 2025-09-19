@@ -1,4 +1,43 @@
-<div class="flex w-full flex-col">
+<div
+  class="flex w-full flex-col gap-4 xl:h-[calc(100vh_-_96px)] xl:min-h-0 xl:gap-8 xl:overflow-hidden"
+>
   <!--prettier-ignore-->
   <%- include('../../components/userInfoProfile', {user: user.info}) %>
+  <div class="flex justify-center xl:hidden">
+    <%- include('../../components/buttonGroup', {labels: ['Posts', 'Comments']})
+    %>
+  </div>
+  <div class="xl:flex xl:min-h-0 xl:flex-1 xl:gap-8 xl:px-3 xl:pb-3">
+    <div id="posts" class="xl:flex xl:min-h-0 xl:flex-1 xl:flex-col xl:gap-4">
+      <h3 class="hidden xl:block xl:self-center xl:text-xl xl:font-semibold">
+        Posts
+      </h3>
+      <hr
+        class="hidden xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
+      />
+      <div
+        class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-auto xl:px-3 xl:pb-3"
+      >
+        <% user.posts.forEach(post => { %> <%-
+        include('../../components/postCardProfile', {post}) %> <% }); %>
+      </div>
+    </div>
+    <div
+      id="comments"
+      class="hidden xl:flex xl:min-h-0 xl:flex-1 xl:flex-col xl:gap-4"
+    >
+      <h3 class="hidden xl:block xl:self-center xl:text-xl xl:font-semibold">
+        Comments
+      </h3>
+      <hr
+        class="hidden xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
+      />
+      <div
+        class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-auto xl:px-3 xl:pb-3"
+      >
+        <% user.comments.forEach(comment => { %> <%-
+        include('../../components/commentCardProfile', {comment}) %> <% }); %>
+      </div>
+    </div>
+  </div>
 </div>

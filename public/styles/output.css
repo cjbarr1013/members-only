@@ -263,6 +263,9 @@
   .left-0 {
     left: calc(var(--spacing) * 0);
   }
+  .z-2 {
+    z-index: 2;
+  }
   .z-10 {
     z-index: 10;
   }
@@ -806,6 +809,9 @@
   .border-gray-300 {
     border-color: var(--color-gray-300);
   }
+  .border-transparent {
+    border-color: transparent;
+  }
   .selected {
     .datatable-wrapper .datatable-table tbody tr& {
       background-color: var(--color-gray-100);
@@ -1052,6 +1058,13 @@
   .shadow-xs {
     --tw-shadow: 0 1px 2px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.05));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .ring-2 {
+    --tw-ring-shadow: var(--tw-ring-inset,) 0 0 0 calc(2px + var(--tw-ring-offset-width)) var(--tw-ring-color, currentcolor);
+    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
+  }
+  .ring-blue-700 {
+    --tw-ring-color: var(--color-blue-700);
   }
   .blur {
     --tw-blur: blur(8px);
@@ -1579,6 +1592,46 @@
       padding-left: calc(var(--spacing) * 3);
     }
   }
+  .xl\:-mx-3 {
+    @media (width >= 80rem) {
+      margin-inline: calc(var(--spacing) * -3);
+    }
+  }
+  .xl\:-mb-3 {
+    @media (width >= 80rem) {
+      margin-bottom: calc(var(--spacing) * -3);
+    }
+  }
+  .xl\:block {
+    @media (width >= 80rem) {
+      display: block;
+    }
+  }
+  .xl\:flex {
+    @media (width >= 80rem) {
+      display: flex;
+    }
+  }
+  .xl\:hidden {
+    @media (width >= 80rem) {
+      display: none;
+    }
+  }
+  .xl\:h-9\/12 {
+    @media (width >= 80rem) {
+      height: calc(9/12 * 100%);
+    }
+  }
+  .xl\:h-10\/12 {
+    @media (width >= 80rem) {
+      height: calc(10/12 * 100%);
+    }
+  }
+  .xl\:h-11\/12 {
+    @media (width >= 80rem) {
+      height: calc(11/12 * 100%);
+    }
+  }
   .xl\:h-\[calc\(100vh_-_96px\)\] {
     @media (width >= 80rem) {
       height: calc(100vh - 96px);
@@ -1587,6 +1640,16 @@
   .xl\:h-full {
     @media (width >= 80rem) {
       height: 100%;
+    }
+  }
+  .xl\:h-px {
+    @media (width >= 80rem) {
+      height: 1px;
+    }
+  }
+  .xl\:min-h-0 {
+    @media (width >= 80rem) {
+      min-height: calc(var(--spacing) * 0);
     }
   }
   .xl\:w-px {
@@ -1604,14 +1667,87 @@
       flex: none;
     }
   }
+  .xl\:flex-col {
+    @media (width >= 80rem) {
+      flex-direction: column;
+    }
+  }
   .xl\:flex-row {
     @media (width >= 80rem) {
       flex-direction: row;
     }
   }
+  .xl\:gap-4 {
+    @media (width >= 80rem) {
+      gap: calc(var(--spacing) * 4);
+    }
+  }
+  .xl\:gap-8 {
+    @media (width >= 80rem) {
+      gap: calc(var(--spacing) * 8);
+    }
+  }
+  .xl\:self-center {
+    @media (width >= 80rem) {
+      align-self: center;
+    }
+  }
   .xl\:self-stretch {
     @media (width >= 80rem) {
       align-self: stretch;
+    }
+  }
+  .xl\:overflow-hidden {
+    @media (width >= 80rem) {
+      overflow: hidden;
+    }
+  }
+  .xl\:overflow-x-visible {
+    @media (width >= 80rem) {
+      overflow-x: visible;
+    }
+  }
+  .xl\:overflow-y-auto {
+    @media (width >= 80rem) {
+      overflow-y: auto;
+    }
+  }
+  .xl\:overflow-y-hidden {
+    @media (width >= 80rem) {
+      overflow-y: hidden;
+    }
+  }
+  .xl\:border-0 {
+    @media (width >= 80rem) {
+      border-style: var(--tw-border-style);
+      border-width: 0px;
+    }
+  }
+  .xl\:bg-gray-300 {
+    @media (width >= 80rem) {
+      background-color: var(--color-gray-300);
+    }
+  }
+  .xl\:px-3 {
+    @media (width >= 80rem) {
+      padding-inline: calc(var(--spacing) * 3);
+    }
+  }
+  .xl\:pb-3 {
+    @media (width >= 80rem) {
+      padding-bottom: calc(var(--spacing) * 3);
+    }
+  }
+  .xl\:text-xl {
+    @media (width >= 80rem) {
+      font-size: var(--text-xl);
+      line-height: var(--tw-leading, var(--text-xl--line-height));
+    }
+  }
+  .xl\:font-semibold {
+    @media (width >= 80rem) {
+      --tw-font-weight: var(--font-weight-semibold);
+      font-weight: var(--font-weight-semibold);
     }
   }
   .\32 xl\:w-\[calc\(\(100\%-16px\)\/3\)\] {
@@ -1765,6 +1901,11 @@
       color: var(--color-white);
     }
   }
+  .dark\:ring-blue-500 {
+    &:where(.dark, .dark *) {
+      --tw-ring-color: var(--color-blue-500);
+    }
+  }
   .dark\:peer-checked\:bg-blue-600 {
     &:where(.dark, .dark *) {
       &:is(:where(.peer):checked ~ *) {
@@ -1867,6 +2008,13 @@
     &:where(.dark, .dark *) {
       &:focus {
         --tw-ring-color: var(--color-gray-700);
+      }
+    }
+  }
+  .xl\:dark\:bg-gray-600 {
+    @media (width >= 80rem) {
+      &:where(.dark, .dark *) {
+        background-color: var(--color-gray-600);
       }
     }
   }

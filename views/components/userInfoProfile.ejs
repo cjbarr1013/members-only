@@ -13,8 +13,11 @@
     <h2 class="text-xl font-medium"><%= user.first %> <%= user.last %></h2>
     <span class="text-gray-500 dark:text-gray-400">@<%= user.username %></span>
   </div>
+  <% if (user.bio) { %>
   <p class="text-center"><%= user.bio %></p>
+  <% } %> <% if (user.loc || user.birthday) { %>
   <div class="flex flex-col items-center gap-1 @xs:flex-row @xs:gap-2">
+    <% if (user.loc) { %>
     <div class="flex items-center gap-1">
       <svg
         class="h-5 w-5 text-gray-800 dark:text-white"
@@ -33,8 +36,7 @@
       </svg>
       <span class="overflow-ellipsis"><%= user.loc %> </span>
     </div>
-
-    <% if (user.loc && user.birthday) { %>
+    <% } %> <% if (user.loc && user.birthday) { %>
     <div class="hidden @xs:block">·</div>
     <% } %>
     <!--prettier-ignore-->
@@ -58,4 +60,5 @@
     </div>
     <% } %>
   </div>
+  <% } %>
 </div>
