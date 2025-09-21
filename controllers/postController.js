@@ -7,12 +7,15 @@ const validateNewPost = [
     .notEmpty()
     .withMessage('You must enter a title for your post.')
     .bail()
-    .isLength({ Max: 250 })
+    .isLength({ max: 250 })
     .withMessage('Your post title cannot exceed 250 characters.'),
   body('message')
     .trim()
     .notEmpty()
-    .withMessage('You must enter a message for your post.'),
+    .withMessage('You must enter a message for your post.')
+    .bail()
+    .isLength({ max: 5000 })
+    .withMessage('Your post title cannot exceed 5000 characters.'),
 ];
 
 async function postsAllGet(req, res, next) {
@@ -25,6 +28,11 @@ async function postsAllGet(req, res, next) {
       page: 'posts/all',
       title: 'Homepage',
       posts,
+      formData: {
+        title: '',
+        message: '',
+      },
+      showAddPostModal: false,
     });
   } catch (err) {
     return next(err);
@@ -62,11 +70,18 @@ async function addPostPost(req, res, next) {
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    // return res.status(400).render('', {
-    //   ...
-    //   errors: errors.array(),
-    // })
-    return res.status(400).json({ errors: errors.array() });
+    const posts = await db.getAllPosts();
+    return res.status(400).render('layouts/main', {
+      page: 'posts/all',
+      title: 'Homepage',
+      posts,
+      formData: {
+        title,
+        message,
+      },
+      showAddPostModal: true,
+      errors: errors.array(),
+    });
   }
 
   try {
