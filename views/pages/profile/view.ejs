@@ -17,12 +17,22 @@
       <hr
         class="hidden xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
       />
+
+      <!--prettier-ignore-->
+      <% if (user.posts.length > 0) { %>
       <div
         class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-scroll xl:px-3 xl:pt-4 xl:pb-3"
       >
-        <% user.posts.forEach(post => { %> <%-
-        include('../../components/postCardProfile', {post}) %> <% }); %>
+        <!--prettier-ignore-->
+        <% user.posts.forEach(post => { %> 
+          <%- include('../../components/postCardProfile', {post}) %> 
+        <% }); %>
       </div>
+      <% } else { %>
+      <div class="flex items-start justify-center xl:flex-1">
+        <p class="px-2 py-4 text-center xl:py-6">No posts to show.</p>
+      </div>
+      <% } %>
     </div>
     <div id="comments" class="hidden xl:flex xl:min-h-0 xl:flex-1 xl:flex-col">
       <h3
@@ -33,12 +43,21 @@
       <hr
         class="hidden xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
       />
+      <!--prettier-ignore-->
+      <% if (user.comments.length > 0) { %>
       <div
         class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-scroll xl:px-3 xl:pt-4 xl:pb-3"
       >
-        <% user.comments.forEach(comment => { %> <%-
-        include('../../components/commentCardProfile', {comment}) %> <% }); %>
+        <!--prettier-ignore-->
+        <% user.comments.forEach(comment => { %> 
+          <%- include('../../components/commentCardProfile', {comment}) %> 
+        <% }); %>
       </div>
+      <% } else { %>
+      <div class="flex items-start justify-center xl:flex-1">
+        <p class="px-2 py-4 text-center xl:py-6">No comments to show.</p>
+      </div>
+      <% } %>
     </div>
   </div>
 </div>
