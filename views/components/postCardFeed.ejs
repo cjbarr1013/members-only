@@ -20,7 +20,7 @@
     </a>
     <% if (post.admin) { %> <%- include('./adminBadge') %> <% } %>
   </div>
-  <div class="flex grow flex-col gap-1">
+  <div class="flex grow flex-col gap-1 wrap-anywhere">
     <h2 class="line-clamp-3 text-lg/6 font-semibold">
       <a href="/view/posts/<%= post.id %>" class="hover:underline">
         <%= post.title %>

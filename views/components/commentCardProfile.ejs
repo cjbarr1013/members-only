@@ -5,11 +5,11 @@
       class="group flex items-center gap-1 text-sm font-semibold"
     >
       <span>&lt;&lt;</span
-      ><span class="line-clamp-1 group-hover:underline"
+      ><span class="line-clamp-1 wrap-anywhere group-hover:underline"
         ><%= comment.post_title %></span
       >
     </a>
   </div>
-  <p class=""><%= comment.message %></p>
+  <p class="wrap-anywhere"><%= comment.message %></p>
   <time class="self-end text-sm"><%= formatDate(comment.added) %></time>
 </div>

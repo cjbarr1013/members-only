@@ -18,6 +18,6 @@
     </a>
     <% if (comment.admin) { %> <%- include('./adminBadge') %> <% } %>
   </div>
-  <p class=""><%= comment.message %></p>
+  <p class="wrap-anywhere"><%= comment.message %></p>
   <time class="self-end text-sm"><%= formatDate(comment.added) %></time>
 </div>

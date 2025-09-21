@@ -18,7 +18,7 @@
     </a>
     <% if (post.admin) { %> <%- include('./adminBadge') %> <% } %>
   </div>
-  <div class="flex grow flex-col gap-1">
+  <div class="flex grow flex-col gap-1 wrap-anywhere">
     <h2 class="text-xl/6 font-semibold"><%= post.title %></h2>
     <p class=""><%= post.message %></p>
   </div>
