@@ -2,8 +2,8 @@
   <%- include('../components/formErrors') %>
   <div class="flex flex-col gap-3">
     <!--prettier-ignore-->
-    <%- include('../components/formInput', {type: 'text', id: 'title', label: 'Title', value: formData.title, required: true}) %>
-    <%- include('../components/formTextarea', {id: 'message', label: 'Message', value: formData.message, rows: 6, maxLength: 5000}) %>
+    <%- include('../components/formInput', {type: 'text', id: 'title', label: 'Title', value: formData.title, maxLength: 250, required: true, styleReqired: true}) %>
+    <%- include('../components/formTextarea', {id: 'message', label: 'Message', value: formData.message, rows: 6, maxLength: 5000, required: true, styleReqired: true}) %>
   </div>
   <!--prettier-ignore-->
   <%- include('../components/button', {type: 'submit', label: 'Submit'}) %>

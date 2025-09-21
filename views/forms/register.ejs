@@ -2,18 +2,23 @@
   <%- include('../components/formErrors', { errors }) %>
   <div class="grid grid-cols-1 gap-4 min-[500px]:grid-cols-2">
     <!--prettier-ignore-->
-    <%- include('../components/formInput', {type: 'text', id: 'first', label: 'First', value: formData.first, required: true}) %>
-    <%- include('../components/formInput', {type: 'text', id: 'last', label: 'Last', value: formData.last, required: true}) %>
+    <%- include('../components/formInput', {type: 'text', id: 'first', label: 'First', value: formData.first, maxLength: 50, required: true, styleReqired: true}) %>
+    <%- include('../components/formInput', {type: 'text', id: 'last', label: 'Last', value: formData.last, maxLength: 50, required: true, styleReqired: true}) %>
   </div>
   <!--prettier-ignore-->
-  <%- include('../components/formInput', {type: 'text', id: 'username', label: 'Username', value: formData.username, required: true}) %>
   <div>
-    <%- include('../components/formInput', {type: 'password', id: 'password', label: 'Password', value: '', required: true}) %>
+    <%- include('../components/formInput', {type: 'text', id: 'username', label: 'Username', value: formData.username, minLength: 6, maxLength: 16, required: true, styleReqired: true}) %>
+    <p class="mt-2 text-sm text-gray-500">
+      * Must be 6-16 characters and only contain letters and numbers
+    </p>
+  </div>
+  <div>
+    <%- include('../components/formInput', {type: 'password', id: 'password', label: 'Password', value: '', minLength: 8, maxLength: 32, required: true, styleReqired: true}) %>
     <p class="mt-2 text-sm text-gray-500">
       * Must be 8–32 characters, including uppercase, lowercase, a number, and a symbol.
     </p>
   </div>
-  <%- include('../components/formInput', {type: 'password', id: 'passwordVerify', label: 'Verify Password', value: '', required: true}) %>
+  <%- include('../components/formInput', {type: 'password', id: 'passwordVerify', label: 'Verify Password', value: '', minLength: 8, maxLength: 32, required: true, styleReqired: true}) %>
   <div class="flex flex-col gap-4 min-[500px]:flex-row">
     <label for="adminChecked" class="inline-flex cursor-pointer items-center">
       <input
@@ -31,7 +36,7 @@
     </label>
     <div class="flex-1">
       <!-- prettier-ignore -->
-      <%- include('../components/formInput', {type: 'text', id: 'adminValue', label: 'Secret Password', value: formData.adminValue, required: false}) %>
+      <%- include('../components/formInput', {type: 'text', id: 'adminValue', label: 'Secret Password', value: formData.adminValue, required: false, styleReqired: false}) %>
       <p id="adminValueHint" class="mt-2 hidden text-sm text-gray-500">
         Hint: The answer is 'Jace'
       </p>

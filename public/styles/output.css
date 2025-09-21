@@ -1061,6 +1061,9 @@
   .text-nowrap {
     text-wrap: nowrap;
   }
+  .wrap-anywhere {
+    overflow-wrap: anywhere;
+  }
   .overflow-ellipsis {
     text-overflow: ellipsis;
   }
@@ -1294,6 +1297,12 @@
     &::after {
       content: var(--tw-content);
       top: 2px;
+    }
+  }
+  .after\:ml-0\.5 {
+    &::after {
+      content: var(--tw-content);
+      margin-left: calc(var(--spacing) * 0.5);
     }
   }
   .after\:h-5 {
@@ -1805,11 +1814,6 @@
       overflow: hidden;
     }
   }
-  .xl\:overflow-visible {
-    @media (width >= 80rem) {
-      overflow: visible;
-    }
-  }
   .xl\:overflow-y-scroll {
     @media (width >= 80rem) {
       overflow-y: scroll;
@@ -1851,13 +1855,6 @@
     @media (width >= 80rem) {
       --tw-font-weight: var(--font-weight-semibold);
       font-weight: var(--font-weight-semibold);
-    }
-  }
-  .xl\:shadow-md\/20 {
-    @media (width >= 80rem) {
-      --tw-shadow-alpha: 20%;
-      --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, oklab(from rgb(0 0 0 / 0.1) l a b / 20%)), 0 2px 4px -2px var(--tw-shadow-color, oklab(from rgb(0 0 0 / 0.1) l a b / 20%));
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
   .\32 xl\:w-\[calc\(\(100\%-16px\)\/3\)\] {
@@ -2128,15 +2125,6 @@
       }
     }
   }
-  .xl\:dark\:shadow-md\/50 {
-    @media (width >= 80rem) {
-      &:where(.dark, .dark *) {
-        --tw-shadow-alpha: 50%;
-        --tw-shadow: 0 4px 6px -1px var(--tw-shadow-color, oklab(from rgb(0 0 0 / 0.1) l a b / 50%)), 0 2px 4px -2px var(--tw-shadow-color, oklab(from rgb(0 0 0 / 0.1) l a b / 50%));
-        box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-      }
-    }
-  }
   .\[\&\>\*\]\:flex-1 {
     &>* {
       flex: 1;
@@ -2153,24 +2141,15 @@
     }
   }
 }
+.style-required:after {
+  margin-left: calc(var(--spacing) * 0.5);
+  color: var(--color-red-500);
+  --tw-content: '*';
+  content: var(--tw-content);
+}
 @layer base {
   button {
     cursor: pointer;
-  }
-  :required + label {
-    &::after {
-      content: var(--tw-content);
-      margin-left: calc(var(--spacing) * 0.5);
-    }
-    &::after {
-      content: var(--tw-content);
-      color: var(--color-red-500);
-    }
-    &::after {
-      content: var(--tw-content);
-      --tw-content: '*';
-      content: var(--tw-content);
-    }
   }
 }
 @layer components {

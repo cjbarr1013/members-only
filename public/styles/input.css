@@ -5,6 +5,10 @@
 @custom-variant dark (&:where(.dark, .dark *));
 /* If custom CSS classes are needed, write in separate file and import */
 
+.style-required:after {
+  @apply ml-0.5 text-red-500 content-['*'];
+}
+
 @theme {
   /* Override or define utility classes and theme variables */
 
@@ -25,10 +29,6 @@
 
   button {
     cursor: pointer;
-  }
-
-  :required + label {
-    @apply after:ml-0.5 after:text-red-500 after:content-['*'];
   }
 }
 
