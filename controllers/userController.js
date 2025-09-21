@@ -224,6 +224,9 @@ async function profileGet(req, res, next) {
 
   try {
     const userProfile = await db.getUserProfileByUsername(username);
+    if (!userProfile) {
+      return next();
+    }
     return res.render('layouts/main', {
       page: 'profile/view',
       title: `${username}'s Profile`,

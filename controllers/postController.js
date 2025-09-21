@@ -50,6 +50,10 @@ async function postByIdGet(req, res, next) {
 
   try {
     const post = await db.getPostById(id);
+    if (!post) {
+      return next();
+    }
+
     return res.render('layouts/main', {
       page: 'posts/byId',
       title: post.title,
