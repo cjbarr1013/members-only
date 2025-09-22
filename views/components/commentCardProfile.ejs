@@ -1,14 +1,18 @@
 <div class="post-card flex flex-col justify-between gap-2">
-  <div class="flex items-center justify-start gap-2">
-    <a
-      href="/view/posts/<%= comment.post_id %>"
-      class="group flex items-center gap-1 text-sm font-semibold"
-    >
-      <span>&lt;&lt;</span
-      ><span class="line-clamp-1 wrap-anywhere group-hover:underline"
-        ><%= comment.post_title %></span
+  <div class="flex justify-between gap-4">
+    <div class="flex items-center justify-start gap-2">
+      <a
+        href="/view/posts/<%= comment.post_id %>"
+        class="group flex items-center gap-1 text-sm font-semibold"
       >
-    </a>
+        <span>&lt;&lt;</span
+        ><span class="line-clamp-1 wrap-anywhere group-hover:underline"
+          ><%= comment.post_title %></span
+        >
+      </a>
+    </div>
+    <!--prettier-ignore-->
+    <% if (currentUser && currentUser.admin) { %> <%- include('./buttonDeleteItem', {postId: comment.post_id, commentId: comment.id}) %> <% } %>
   </div>
   <p class="wrap-anywhere"><%= comment.message %></p>
   <time class="self-end text-sm"><%= formatDate(comment.added) %></time>

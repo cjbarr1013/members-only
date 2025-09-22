@@ -1,22 +1,26 @@
 <div class="post-card flex flex-col justify-between gap-4">
-  <div class="flex items-center justify-start gap-2">
-    <a
-      href="/view/profile/<%= post.username %>"
-      class="group flex items-center gap-2"
-    >
-      <img
-        class="h-10 w-10 rounded-lg object-cover"
-        src="<%= reconfigureImage(post.pic_url, 'sm', post.username) %>"
-        alt=""
-        loading="lazy"
-        width="40"
-        height="40"
-      />
-      <div class="font-bold overflow-ellipsis group-hover:underline">
-        <%= post.username %>
-      </div>
-    </a>
-    <% if (post.admin) { %> <%- include('./adminBadge') %> <% } %>
+  <div class="flex justify-between gap-4">
+    <div class="flex items-center justify-start gap-2">
+      <a
+        href="/view/profile/<%= post.username %>"
+        class="group flex items-center gap-2"
+      >
+        <img
+          class="h-10 w-10 rounded-lg object-cover"
+          src="<%= reconfigureImage(post.pic_url, 'sm', post.username) %>"
+          alt=""
+          loading="lazy"
+          width="40"
+          height="40"
+        />
+        <div class="font-bold overflow-ellipsis group-hover:underline">
+          <%= post.username %>
+        </div>
+      </a>
+      <% if (post.admin) { %> <%- include('./adminBadge') %> <% } %>
+    </div>
+    <!--prettier-ignore-->
+    <% if (currentUser && currentUser.admin) { %> <%- include('./buttonDeleteItem', {postId: post.id, commentId: null}) %> <% } %>
   </div>
   <div class="flex grow flex-col gap-1 wrap-anywhere">
     <h2 class="text-xl/6 font-semibold"><%= post.title %></h2>

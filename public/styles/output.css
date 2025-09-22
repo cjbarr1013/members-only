@@ -671,6 +671,9 @@
   .self-end {
     align-self: flex-end;
   }
+  .self-start {
+    align-self: flex-start;
+  }
   .overflow-hidden {
     overflow: hidden;
   }

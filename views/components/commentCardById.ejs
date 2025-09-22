@@ -1,22 +1,26 @@
 <div class="post-card flex flex-col justify-between gap-2">
-  <div class="flex items-center justify-start gap-2">
-    <a
-      href="/view/profile/<%= comment.username %>"
-      class="group flex items-center gap-2"
-    >
-      <img
-        class="h-8 w-8 rounded-lg object-cover"
-        src="<%= reconfigureImage(comment.pic_url, 'sm', comment.username) %>"
-        alt=""
-        loading="lazy"
-        width="32"
-        height="32"
-      />
-      <div class="text-sm font-bold overflow-ellipsis group-hover:underline">
-        <%= comment.username %>
-      </div>
-    </a>
-    <% if (comment.admin) { %> <%- include('./adminBadge') %> <% } %>
+  <div class="flex justify-between gap-4">
+    <div class="flex items-center justify-start gap-2">
+      <a
+        href="/view/profile/<%= comment.username %>"
+        class="group flex items-center gap-2"
+      >
+        <img
+          class="h-8 w-8 rounded-lg object-cover"
+          src="<%= reconfigureImage(comment.pic_url, 'sm', comment.username) %>"
+          alt=""
+          loading="lazy"
+          width="32"
+          height="32"
+        />
+        <div class="text-sm font-bold overflow-ellipsis group-hover:underline">
+          <%= comment.username %>
+        </div>
+      </a>
+      <% if (comment.admin) { %> <%- include('./adminBadge') %> <% } %>
+    </div>
+    <!--prettier-ignore-->
+    <% if (currentUser && currentUser.admin) { %> <%- include('./buttonDeleteItem', {postId: post.id, commentId: comment.id} ) %> <% } %>
   </div>
   <p class="wrap-anywhere"><%= comment.message %></p>
   <time class="self-end text-sm"><%= formatDate(comment.added) %></time>

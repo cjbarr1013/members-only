@@ -1,24 +1,28 @@
 <article
   class="grid-item post-card mb-2 flex w-full flex-col justify-between gap-4 lg:w-[calc((100%-8px)/2)] 2xl:w-[calc((100%-16px)/3)]"
 >
-  <div class="flex items-center justify-start gap-2">
-    <a
-      href="/view/profile/<%= post.username %>"
-      class="group flex items-center gap-2"
-    >
-      <img
-        class="h-8 w-8 rounded-lg object-cover"
-        src="<%= reconfigureImage(post.pic_url, 'sm', post.username) %>"
-        alt=""
-        loading="lazy"
-        width="32"
-        height="32"
-      />
-      <div class="text-sm font-bold overflow-ellipsis group-hover:underline">
-        <%= post.username %>
-      </div>
-    </a>
-    <% if (post.admin) { %> <%- include('./adminBadge') %> <% } %>
+  <div class="flex justify-between gap-4">
+    <div class="flex items-center justify-start gap-2">
+      <a
+        href="/view/profile/<%= post.username %>"
+        class="group flex items-center gap-2"
+      >
+        <img
+          class="h-8 w-8 rounded-lg object-cover"
+          src="<%= reconfigureImage(post.pic_url, 'sm', post.username) %>"
+          alt=""
+          loading="lazy"
+          width="32"
+          height="32"
+        />
+        <div class="text-sm font-bold overflow-ellipsis group-hover:underline">
+          <%= post.username %>
+        </div>
+      </a>
+      <% if (post.admin) { %> <%- include('./adminBadge') %> <% } %>
+    </div>
+    <!--prettier-ignore-->
+    <% if (currentUser && currentUser.admin) { %> <%- include('./buttonDeleteItem', {postId: post.id, commentId: null}) %> <% } %>
   </div>
   <div class="flex grow flex-col gap-1 wrap-anywhere">
     <h2 class="line-clamp-3 text-lg/6 font-semibold">
