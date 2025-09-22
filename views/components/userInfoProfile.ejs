@@ -1,5 +1,5 @@
 <div
-  class="post-card @container flex max-w-150 flex-col items-center gap-2 self-center wrap-anywhere"
+  class="post-card @container relative flex max-w-150 flex-col items-center gap-2 self-center wrap-anywhere"
 >
   <img
     class="h-30 w-30 rounded-lg object-cover"
@@ -10,7 +10,10 @@
     height="120"
   />
   <div class="flex flex-col items-center">
-    <h2 class="text-xl font-medium"><%= user.first %> <%= user.last %></h2>
+    <div class="flex items-center justify-center gap-2">
+      <h2 class="text-xl font-medium"><%= user.first %> <%= user.last %></h2>
+      <% if (user.admin) { %> <%- include('./adminBadge') %> <% } %>
+    </div>
     <span class="text-gray-500 dark:text-gray-400">@<%= user.username %></span>
   </div>
   <% if (user.bio) { %>
@@ -60,5 +63,9 @@
     </div>
     <% } %>
   </div>
+  <% } %>
+  <!--prettier-ignore-->
+  <% if (user.username === currentUser.username) { %>
+    <%- include('./buttonEditProfile') %>
   <% } %>
 </div>

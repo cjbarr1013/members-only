@@ -1,0 +1,51 @@
+<form action="/edit/profile/<%= user.info.username %>" method="post" class="flex flex-col gap-4">
+
+  <%- include('../components/formErrors', { errors }) %>
+
+  <div class="grid grid-cols-1 gap-4 min-[500px]:grid-cols-2">
+    <!--prettier-ignore-->
+    <%- include('../components/formInput', {type: 'text', id: 'first', label: 'First', value: formData.first, maxLength: 50, required: true, styleReqired: true}) %>
+    <%- include('../components/formInput', {type: 'text', id: 'last', label: 'Last', value: formData.last, maxLength: 50, required: true, styleReqired: true}) %>
+  </div>
+
+  <div>
+    <div class="flex flex-col gap-4 min-[500px]:flex-row">
+      <label for="adminChecked" class="inline-flex cursor-pointer items-center">
+        <input
+          id="adminChecked"
+          name="adminChecked"
+          type="checkbox"
+          value="adminChecked"
+          class="peer sr-only"
+          <%= currentUser.admin ? ' disabled' : '' %>
+        <%= formData.adminChecked ? ' checked' : '' %>
+        />
+        <div
+          class="peer relative h-6 w-11 rounded-full bg-gray-200 peer-checked:bg-blue-600 peer-focus:ring-4 peer-focus:ring-blue-300 peer-focus:outline-none after:absolute after:start-[2px] after:top-[2px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:after:translate-x-full peer-checked:after:border-white rtl:peer-checked:after:-translate-x-full"
+        ></div>
+        <span class="ms-3 font-medium text-gray-900">Admin?</span>
+      </label>
+      <div class="flex-1">
+        <!-- prettier-ignore -->
+        <%- include('../components/formInput', {type: 'text', id: 'adminValue', label: 'Secret Password', value: formData.adminValue, required: false, styleReqired: false}) %>
+        <p id="adminValueHint" class="mt-2 hidden text-sm text-gray-500">
+          Hint: The answer is 'Jace'
+        </p>
+      </div>
+    </div>
+    <% if (user.info.admin) { %>
+      <p class="mt-2 text-sm text-gray-500">
+        * You are already an admin. This cannot be changed.
+      </p>
+    <% } %>
+  </div>
+
+  
+  <!--prettier-ignore-->
+  <%- include('../components/formInput', {type: 'url', id: 'picUrl', label: 'Avatar (url)', value: formData.picUrl, required: false, styleReqired: false}) %>
+  <%- include('../components/formTextarea', {id: 'bio', label: 'Bio', value: formData.bio, rows: 6, maxLength: 250, required: false, styleReqired: false}) %>
+  <%- include('../components/formInput', {type: 'text', id: 'loc', label: 'Location', value: formData.loc, maxLength: 30, required: false, styleReqired: false}) %>
+  <%- include('../components/formInput', {type: 'date', id: 'birthday', label: 'Birthday', value: formData.birthday, required: false, styleReqired: false}) %>
+  <%- include('../components/button', {type: 'submit', label: 'Save'}) %>
+  
+</form>

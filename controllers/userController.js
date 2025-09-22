@@ -63,6 +63,23 @@ const validateAdmin = [
     }),
 ];
 
+const validateUserName = [
+  body('first')
+    .trim()
+    .notEmpty()
+    .withMessage('You must enter a first name.')
+    .bail()
+    .isLength({ max: 50 })
+    .withMessage('First name cannot exceed 50 characters.'),
+  body('last')
+    .trim()
+    .notEmpty()
+    .withMessage('You must enter a last name.')
+    .bail()
+    .isLength({ max: 50 })
+    .withMessage('Last name cannot exceed 50 characters.'),
+];
+
 const validateUserProfile = [
   body('picUrl')
     .trim()
@@ -75,8 +92,8 @@ const validateUserProfile = [
     .withMessage('Bio cannot exceed 250 characters.'),
   body('loc')
     .optional({ checkFalsy: true })
-    .isLength({ max: 50 })
-    .withMessage('Location cannot exceed 50 characters.'),
+    .isLength({ max: 30 })
+    .withMessage('Location cannot exceed 30 characters.'),
   body('birthday')
     .optional({ checkFalsy: true })
     .isISO8601({ strict: true })
@@ -177,7 +194,7 @@ async function registerProfilePost(req, res, next) {
   }
 
   try {
-    await db.editUserInfo(
+    await db.addUserInfo(
       req.user.id,
       req.user.admin,
       picUrl,
@@ -231,26 +248,19 @@ async function profileGet(req, res, next) {
       page: 'profile/view',
       title: `${username}'s Profile`,
       user: userProfile,
+      errors: [],
+      formData: {
+        first: userProfile.info.first,
+        last: userProfile.info.last,
+        adminChecked: false,
+        adminValue: '',
+        picUrl: userProfile.info.pic_url,
+        bio: userProfile.info.bio,
+        loc: userProfile.info.loc,
+        birthday: userProfile.info.birthday,
+      },
+      showEditProfileModal: false,
     });
-  } catch (err) {
-    return next(err);
-  }
-}
-
-async function editProfileGet(req, res, next) {
-  // From req: username
-  // To database: username
-  // From database: pic_url, bio, loc, birthday
-
-  const { username } = req.params;
-
-  try {
-    const userInfo = await db.getUserInfoByUsername(username);
-    // return res.render('', {
-    //   title: '',
-    //   ...
-    // })
-    return res.send(userInfo);
   } catch (err) {
     return next(err);
   }
@@ -261,19 +271,45 @@ async function editProfilePost(req, res, next) {
   // From req: pic_url, bio, loc, birthday
   // To database: id, pic_url, bio, loc, birthday
 
-  const { admin, picUrl, bio, loc, birthday } = req.body;
+  const { first, last, adminChecked, adminValue, picUrl, bio, loc, birthday } =
+    req.body;
+  const { username } = req.params;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    // return res.status(400).render('', {
-    //   ...
-    //   errors: errors.array(),
-    // })
-    return res.status(400).json({ errors: errors.array() });
+    const userProfile = await db.getUserProfileByUsername(username);
+    return res.status(400).render('layouts/main', {
+      page: 'profile/view',
+      title: `${username}'s Profile`,
+      user: userProfile,
+      errors: errors.array(),
+      formData: {
+        first,
+        last,
+        adminChecked,
+        adminValue,
+        picUrl,
+        bio,
+        loc,
+        birthday,
+      },
+      showEditProfileModal: true,
+    });
   }
 
+  const isAdmin = req.user.admin || adminChecked ? true : false;
+
   try {
-    await db.editUserInfo(req.user.id, admin, picUrl, bio, loc, birthday);
+    await db.editUserInfo(
+      req.user.id,
+      first,
+      last,
+      isAdmin,
+      picUrl,
+      bio,
+      loc,
+      birthday
+    );
     return res.redirect(`/view/profile/${req.user.username}`);
   } catch (err) {
     return next(err);
@@ -283,6 +319,7 @@ async function editProfilePost(req, res, next) {
 module.exports = {
   validateNewUser,
   validateAdmin,
+  validateUserName,
   validateUserProfile,
   registerGet,
   registerPost,
@@ -291,6 +328,5 @@ module.exports = {
   loginGet,
   logoutGet,
   profileGet,
-  editProfileGet,
   editProfilePost,
 };
