@@ -275,7 +275,8 @@ async function editProfilePost(req, res, next) {
     req.body;
   const { username } = req.params;
   const errors = validationResult(req);
-
+  console.log(errors);
+  console.log(req.body);
   if (!errors.isEmpty()) {
     const userProfile = await db.getUserProfileByUsername(username);
     return res.status(400).render('layouts/main', {
