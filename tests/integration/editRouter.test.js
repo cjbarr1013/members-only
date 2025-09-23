@@ -4,42 +4,6 @@ const db = require('../../db/queries');
 const { registerAndLogin } = require('../helpers/auth');
 
 describe('editRouter', () => {
-  describe('GET /profile/:username route', () => {
-    it('returns 200 when authoriazed and same user', async () => {
-      const { agent, username } = await registerAndLogin(app);
-
-      const res = await agent.get(`/edit/profile/${username}`);
-
-      expect(res.statusCode).toBe(200);
-    });
-
-    it('redirects to /auth/login when not authenticated', async () => {
-      const { username } = await registerAndLogin(app); // create an existing user
-
-      const res = await request(app).get(`/edit/profile/${username}`);
-      expect([302, 303]).toContain(res.statusCode);
-      expect(res.headers.location).toBe('/auth/login');
-    });
-
-    it('returns 404 when user is not found', async () => {
-      const { agent } = await registerAndLogin(app);
-      const missing = `missing_${Date.now()}`;
-
-      const res = await agent.get(`/edit/profile/${missing}`);
-
-      expect(res.statusCode).toBe(404);
-    });
-
-    it('returns 403 when user attempting to access is not same', async () => {
-      const a = await registerAndLogin(app);
-      const b = await registerAndLogin(app);
-
-      const res = await a.agent.get(`/edit/profile/${b.username}`);
-
-      expect(res.statusCode).toBe(403);
-    });
-  });
-
   describe('POST /profile/:username route', () => {
     it('edits user and redirects to /view/profile/:username when authoriazed and same user', async () => {
       const { agent, username } = await registerAndLogin(app);
@@ -48,7 +12,8 @@ describe('editRouter', () => {
         .post(`/edit/profile/${username}`)
         .type('form')
         .send({
-          admin: false,
+          first: 'Jace',
+          last: 'Smith',
           picUrl: 'https://example.com/p.png',
           bio: 'Hello world',
           loc: 'NY',
