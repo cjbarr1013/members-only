@@ -3,7 +3,18 @@
   <div class="flex flex-col gap-3">
     <!-- prettier-ignore -->
     <%- include('../components/formInput', {type: 'text', id: 'username', label: 'Username', value: formData.username, required: true, styleReqired: false}) %>
-    <%- include('../components/formInput', {type: 'password', id: 'password', label: 'Password', required: true, styleReqired: false}) %>
+    <div class="flex flex-col gap-2">
+      <!-- prettier-ignore -->
+      <%- include('../components/formInput', {type: 'password', id: 'password', label: 'Password', required: true, styleReqired: false}) %>
+      <div>
+        <p class="text-sm text-gray-500">
+          Regular User - u: <b>jayevans34</b>, p: <b>password</b>
+        </p>
+        <p class="text-sm text-gray-500">
+          Admin User - u: <b>jace_mitch</b>, p: <b>password</b>
+        </p>
+      </div>
+    </div>
   </div>
   <!-- prettier-ignore -->
   <%- include('../components/button', {type: 'submit', label: 'Log In'}) %>
