@@ -13,14 +13,23 @@
     </div>
 
     <script src="/js/darkModeToggle.js"></script>
+    <!--prettier-ignore-->
     <% if (page === 'profile/edit') { %>
     <script src="/js/adminCheck.js"></script>
-    <% } %> <% if (page === 'posts/all') { %>
+    <% } %>
+    <!--prettier-ignore-->
+    <% if (page === 'posts/all') { %>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="/js/masonry.js"></script>
-    <% } %> <% if (page === 'profile/view') { %>
+    <% } %>
+    <!--prettier-ignore-->
+    <% if (page === 'profile/view') { %>
     <script src="/js/profileButtonToggle.js" defer></script>
-    <script src="/js/adminCheck.js" defer></script>
+    <% } %>
+    <!--prettier-ignore-->
+    <% if (typeof currentUser !== 'undefined' && currentUser.admin) { %>
+    <%- include('../components/modal', {modalId: 'confirm-modal', modalTitle: 'Heads up, Jace!', bodyPath: '../forms/confirm'}) %>
+    <script src="/js/populateConfirmModal.js" defer></script>
     <% } %>
   </body>
 </html>

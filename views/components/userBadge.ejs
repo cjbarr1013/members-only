@@ -45,12 +45,21 @@
         </li>
       </ul>
       <div class="py-1" role="none">
-        <a
+        <button
           href="/auth/logout"
-          class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+          class="block w-full px-4 py-2 text-left text-sm text-gray-700 hover:bg-red-500 hover:text-white dark:text-gray-300"
           role="menuitem"
-          >Sign Out</a
+          type="button"
+          data-modal-target="confirm-modal"
+          data-modal-toggle="confirm-modal"
+          data-confirm
+          data-confirm-path="/auth/logout"
+          data-confirm-message="Are you sure you want to log out?"
+          data-confirm-confirm-btn-msg="Yes please!"
+          data-confirm-cancel-btn-msg="No thanks."
         >
+          Log Out
+        </button>
       </div>
     </div>
   </div>

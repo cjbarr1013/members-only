@@ -221,7 +221,7 @@ function loginGet(req, res) {
   });
 }
 
-function logoutGet(req, res, next) {
+function logoutPost(req, res, next) {
   req.logout((err) => {
     if (err) {
       return next(err);
@@ -326,7 +326,7 @@ module.exports = {
   registerProfileGet,
   registerProfilePost,
   loginGet,
-  logoutGet,
+  logoutPost,
   profileGet,
   editProfilePost,
 };
