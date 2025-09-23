@@ -184,7 +184,7 @@ describe('authRouter', () => {
       const res = await agent
         .post('/auth/login')
         .type('form')
-        .send({ username: 'jcarter1345', password: 'password' });
+        .send({ username: 'jace_mitch', password: 'password' });
       expect([302, 303]).toContain(res.statusCode);
       expect(res.headers.location).toBe('/');
     });
@@ -203,7 +203,7 @@ describe('authRouter', () => {
   describe('GET /logout route', () => {
     it('sucessfully logs out when authenticated', async () => {
       const { agent } = await registerAndLogin(app);
-      const res = await agent.get('/auth/logout');
+      const res = await agent.post('/auth/logout');
       expect([302, 303]).toContain(res.statusCode);
       expect(res.headers.location).toBe('/');
 
@@ -214,7 +214,7 @@ describe('authRouter', () => {
     });
 
     it('redirects to /auth/login when not authenticated', async () => {
-      const res = await request(app).get('/auth/logout');
+      const res = await request(app).post('/auth/logout');
       expect([302, 303]).toContain(res.statusCode);
       expect(res.headers.location).toBe('/auth/login');
     });

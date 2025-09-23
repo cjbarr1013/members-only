@@ -45,7 +45,7 @@ describe('viewRouter', () => {
 
     it('redirects to sign in if not signed in', async () => {
       const { agent, username } = await registerAndLogin(app);
-      const res = await agent.get('/auth/logout');
+      const res = await agent.post('/auth/logout');
       expect([302, 303]).toContain(res.statusCode);
       expect(res.headers.location).toBe('/');
 
