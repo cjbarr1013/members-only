@@ -1799,6 +1799,11 @@
       padding-left: calc(var(--spacing) * 3);
     }
   }
+  .xl\:relative {
+    @media (width >= 80rem) {
+      position: relative;
+    }
+  }
   .xl\:-mx-3 {
     @media (width >= 80rem) {
       margin-inline: calc(var(--spacing) * -3);
@@ -1892,6 +1897,16 @@
   .xl\:overflow-hidden {
     @media (width >= 80rem) {
       overflow: hidden;
+    }
+  }
+  .xl\:overflow-y-auto {
+    @media (width >= 80rem) {
+      overflow-y: auto;
+    }
+  }
+  .xl\:overflow-y-hidden {
+    @media (width >= 80rem) {
+      overflow-y: hidden;
     }
   }
   .xl\:overflow-y-scroll {
