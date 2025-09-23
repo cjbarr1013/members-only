@@ -61,11 +61,6 @@
     </div>
   </div>
   <!--prettier-ignore-->
-  <% if (user.info.username === currentUser.username) { %>
-    <%- include('../../components/modal', { modalId: 'edit-profile-modal', modalTitle: 'Edit user profile', bodyPath: '../forms/editProfile' }) %>
-  <script src="/js/adminCheck.js" defer></script>
-  <% } %>
-  <!--prettier-ignore-->
   <% if (user.info.username === currentUser.username && showEditProfileModal) { %>
   <script src="/js/showEditProfileModalCheck.js"></script>
   <% } %>

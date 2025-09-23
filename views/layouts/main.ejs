@@ -14,18 +14,31 @@
 
     <script src="/js/darkModeToggle.js"></script>
     <!--prettier-ignore-->
+
     <% if (page === 'profile/edit') { %>
     <script src="/js/adminCheck.js"></script>
     <% } %>
+
     <!--prettier-ignore-->
     <% if (page === 'posts/all') { %>
     <script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
     <script src="/js/masonry.js"></script>
     <% } %>
+
     <!--prettier-ignore-->
     <% if (page === 'profile/view') { %>
     <script src="/js/profileButtonToggle.js" defer></script>
     <% } %>
+
+    <!--prettier-ignore-->
+    <% if (page === 'profile/view' 
+            && typeof user.info.username !== 'undefined' 
+            && typeof currentUser !== 'undefined' 
+            && user.info.username === currentUser.username) { %>
+      <%- include('../components/modal', { modalId: 'edit-profile-modal', modalTitle: 'Edit user profile', bodyPath: '../forms/editProfile' }) %>
+    <script src="/js/adminCheck.js" defer></script>
+    <% } %>
+
     <!--prettier-ignore-->
     <% if (typeof currentUser !== 'undefined' && currentUser.admin) { %>
     <%- include('../components/modal', {modalId: 'confirm-modal', modalTitle: 'Heads up, Jace!', bodyPath: '../forms/confirm'}) %>
