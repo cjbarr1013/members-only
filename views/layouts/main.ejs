@@ -40,7 +40,7 @@
     <% } %>
 
     <!--prettier-ignore-->
-    <% if (typeof currentUser !== 'undefined' && currentUser.admin) { %>
+    <% if (currentUser) { %>
     <%- include('../components/modal', {modalId: 'confirm-modal', modalTitle: 'Heads up, Jace!', bodyPath: '../forms/confirm'}) %>
     <script src="/js/populateConfirmModal.js" defer></script>
     <% } %>
