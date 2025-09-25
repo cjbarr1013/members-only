@@ -11,9 +11,26 @@ if (messages.error && messages.error.length > 0) {
 %>
 
 <% if (errorMsgs.length > 0) { %>
-<ul class="flex list-inside list-disc flex-col gap-2 text-sm text-red-600">
-  <% errorMsgs.forEach(msg => { %>
-  <li><%= msg %></li>
-  <% }); %>
-</ul>
+<div class="flex rounded-lg bg-red-50 p-4 text-sm text-red-800" role="alert">
+  <svg
+    class="me-3 mt-[2px] inline h-4 w-4 shrink-0"
+    aria-hidden="true"
+    xmlns="http://www.w3.org/2000/svg"
+    fill="currentColor"
+    viewBox="0 0 20 20"
+  >
+    <path
+      d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+    />
+  </svg>
+  <span class="sr-only">Danger</span>
+  <div class="flex flex-col gap-2">
+    <span class="font-medium">The following issues need addressed:</span>
+    <ul class="flex list-inside list-disc flex-col gap-1">
+      <% errorMsgs.forEach(msg => { %>
+      <li><%= msg %></li>
+      <% }); %>
+    </ul>
+  </div>
+</div>
 <% } %>
