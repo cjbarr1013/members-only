@@ -36,9 +36,11 @@ authRouter.get('/login', userController.loginGet);
 authRouter.post(
   '/login',
   passport.authenticate('local', {
-    successRedirect: '/',
+    successRedirect: '/view/posts',
     failureRedirect: '/auth/login',
+    successFlash: true,
     failureFlash: true,
+    keepSessionInfo: true,
   })
 );
 

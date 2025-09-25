@@ -22,7 +22,9 @@ passport.use(
         }
 
         delete req.session.attemptedUsername;
-        return done(null, user);
+        return done(null, user, {
+          message: 'You have been successfully logged in!',
+        });
       } catch (err) {
         delete req.session.attemptedUsername;
         return done(err);

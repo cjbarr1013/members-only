@@ -24,6 +24,7 @@ async function postsAllGet(req, res, next) {
 
   try {
     const posts = await db.getAllPosts();
+    console.log('postsAllGet:', res.locals.messages);
     return res.render('layouts/main', {
       page: 'posts/all',
       title: 'Homepage',
@@ -90,7 +91,8 @@ async function addPostPost(req, res, next) {
 
   try {
     await db.addPost(title, message, req.user.id);
-    return res.redirect('/');
+    req.flash('success', 'Post has successfully been submitted!');
+    return res.redirect('/view/posts');
   } catch (err) {
     return next(err);
   }
@@ -104,7 +106,8 @@ async function deletePostPost(req, res, next) {
 
   try {
     await db.deletePost(id);
-    return res.redirect('/');
+    req.flash('success', 'Post has successfully been deleted!');
+    return res.redirect('/view/posts');
   } catch (err) {
     return next(err);
   }

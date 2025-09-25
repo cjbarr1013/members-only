@@ -1,0 +1,101 @@
+<div
+  class="fixed top-[88px] left-1/2 z-34 flex w-5/6 max-w-[500px] min-w-[300px] -translate-x-1/2 flex-col gap-4 sm:left-[calc(--spacing(52)+((100vw-(--spacing(52)))/2))] sm:w-7/12 lg:left-[calc(--spacing(60)+((100vw-(--spacing(60)))/2))]"
+>
+  <!--prettier-ignore-->
+  <% if (messages.success) { %>
+    <% messages.success.forEach((msg, i) => { %>
+  <div
+    id="success-alert-<%= i %>"
+    class="animate-drop-in-out flex items-center justify-between gap-2 rounded-lg bg-green-50 py-2 ps-4 pe-2 text-green-800 dark:bg-green-800 dark:text-green-400"
+    role="alert"
+  >
+    <div class="flex gap-2">
+      <svg
+        class="h-4 w-4 shrink-0 self-center"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div class="text-sm font-medium"><%= msg %></div>
+    </div>
+    <button
+      type="button"
+      class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-green-50 p-1.5 text-green-500 hover:bg-green-200 focus:ring-2 focus:ring-green-400 dark:bg-green-800 dark:text-green-400 dark:hover:bg-green-700"
+      data-dismiss-target="#success-alert-<%= i %>"
+      aria-label="Close"
+    >
+      <span class="sr-only">Close</span>
+      <svg
+        class="h-3 w-3"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 14 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+        />
+      </svg>
+    </button>
+  </div>
+  <% }) %> <% } %>
+
+  <!--prettier-ignore-->
+  <% if (messages.errorFlash) { %>
+    <% messages.errorFlash.forEach(msg => { %>
+  <div
+    id="error-alert-<%= i %>"
+    class="flex items-center justify-between gap-2 rounded-lg bg-red-50 py-2 ps-4 pe-2 text-red-800 dark:bg-red-800 dark:text-red-400"
+    role="alert"
+  >
+    <div class="flex gap-2">
+      <svg
+        class="h-4 w-4 shrink-0 self-center"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="currentColor"
+        viewBox="0 0 20 20"
+      >
+        <path
+          d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z"
+        />
+      </svg>
+      <span class="sr-only">Info</span>
+      <div class="text-sm font-medium"><%= msg %></div>
+    </div>
+    <button
+      type="button"
+      class="inline-flex h-8 w-8 items-center justify-center rounded-lg bg-red-50 p-1.5 text-red-500 hover:bg-red-200 focus:ring-2 focus:ring-red-400 dark:bg-red-800 dark:text-red-400 dark:hover:bg-red-700"
+      data-dismiss-target="#error-alert-<%= i %>"
+      aria-label="Close"
+    >
+      <span class="sr-only">Close</span>
+      <svg
+        class="h-3 w-3"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 14 14"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"
+        />
+      </svg>
+    </button>
+  </div>
+  <% }) %> <% } %>
+</div>

@@ -226,7 +226,8 @@ function logoutPost(req, res, next) {
     if (err) {
       return next(err);
     }
-    return res.redirect('/');
+    req.flash('success', 'You have successfully logged out.');
+    return res.redirect('/view/posts');
   });
 }
 

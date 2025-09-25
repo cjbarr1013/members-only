@@ -33,6 +33,7 @@ async function addCommentPost(req, res, next) {
 
   try {
     await db.addComment(message, postId, req.user.id);
+    req.flash('success', 'Comment has successfully been submitted!');
     return res.redirect(`/view/posts/${postId}`);
   } catch (err) {
     return next(err);
@@ -47,6 +48,7 @@ async function deleteCommentPost(req, res, next) {
 
   try {
     await db.deleteComment(commentId);
+    req.flash('success', 'Comment has successfully been deleted!');
     return res.redirect(`/view/posts/${postId}`);
   } catch (err) {
     return next(err);

@@ -21,7 +21,7 @@
       <!--prettier-ignore-->
       <% if (user.posts.length > 0) { %>
       <div
-        class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-scroll xl:px-3 xl:pt-4 xl:pb-3"
+        class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-auto xl:px-3 xl:pt-4 xl:pb-3"
       >
         <!--prettier-ignore-->
         <% user.posts.forEach(post => { %> 
@@ -41,12 +41,12 @@
         Comments
       </h3>
       <hr
-        class="hidden xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
+        class="hidden xl:z-2 xl:me-1 xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
       />
       <!--prettier-ignore-->
       <% if (user.comments.length > 0) { %>
       <div
-        class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-scroll xl:px-3 xl:pt-4 xl:pb-3"
+        class="flex flex-col gap-2 xl:-mx-3 xl:-mb-3 xl:overflow-y-auto xl:px-3 xl:pt-4 xl:pb-3"
       >
         <!--prettier-ignore-->
         <% user.comments.forEach(comment => { %> 

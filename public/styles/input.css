@@ -20,6 +20,22 @@
   --font-poppins: 
   */
   --color-logo-500: #1877f2;
+
+  --animate-drop-in-out: drop-in-out 6s ease-in-out 1;
+
+  @keyframes drop-in-out {
+    0%,
+    100% {
+      transform: translateY(-500px);
+      opacity: 0;
+    }
+
+    10%,
+    90% {
+      transform: translateY(0);
+      opacity: 1;
+    }
+  }
 }
 
 @layer base {
