@@ -21,7 +21,11 @@
   */
   --color-logo-500: #1877f2;
 
-  --animate-drop-in-out: drop-in-out 6s ease-in-out 1;
+  --spacing-nav: --spacing(18);
+  --spacing-sidebar-sm: --spacing(56);
+  --spacing-sidebar-lg: --spacing(64);
+
+  --animate-drop-in-out: drop-in-out 5s ease-in-out 1;
 
   @keyframes drop-in-out {
     0%,
