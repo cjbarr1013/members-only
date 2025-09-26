@@ -186,7 +186,7 @@ describe('authRouter', () => {
         .type('form')
         .send({ username: 'jace_mitch', password: 'password' });
       expect([302, 303]).toContain(res.statusCode);
-      expect(res.headers.location).toBe('/');
+      expect(res.headers.location).toBe('/view/posts');
     });
 
     it('redirects back to /auth/login with invalid credentials', async () => {
@@ -205,7 +205,7 @@ describe('authRouter', () => {
       const { agent } = await registerAndLogin(app);
       const res = await agent.post('/auth/logout');
       expect([302, 303]).toContain(res.statusCode);
-      expect(res.headers.location).toBe('/');
+      expect(res.headers.location).toBe('/view/posts');
 
       // Verify session is cleared by attempting to access an authed route
       const after = await agent.get('/auth/register/profile');

@@ -4,13 +4,15 @@ const userController = require('../controllers/userController');
 const {
   isAuthAction,
   isAuthRoute,
+  isNotAuthRoute,
+  isNewlyRegistered,
   normalizeCheckbox,
   verifyAdminValueNotUndef,
 } = require('../middleware/authMiddleware');
 const authRouter = Router();
 
 // routes
-authRouter.get('/register', userController.registerGet);
+authRouter.get('/register', isNotAuthRoute, userController.registerGet);
 authRouter.post(
   '/register',
   normalizeCheckbox,
@@ -23,6 +25,7 @@ authRouter.post(
 authRouter.get(
   '/register/profile',
   isAuthRoute,
+  isNewlyRegistered,
   userController.registerProfileGet
 );
 authRouter.post(
@@ -32,7 +35,7 @@ authRouter.post(
   userController.registerProfilePost
 );
 
-authRouter.get('/login', userController.loginGet);
+authRouter.get('/login', isNotAuthRoute, userController.loginGet);
 authRouter.post(
   '/login',
   passport.authenticate('local', {

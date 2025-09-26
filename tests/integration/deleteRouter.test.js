@@ -15,7 +15,7 @@ describe('deleteRouter', () => {
         .type('form')
         .send();
       expect([302, 303]).toContain(res.statusCode);
-      expect(res.headers.location).toBe('/');
+      expect(res.headers.location).toBe('/view/posts');
 
       const postAfter = await db.getPostById(target.id);
       expect(postAfter).toBeFalsy();

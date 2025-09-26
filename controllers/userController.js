@@ -147,6 +147,7 @@ async function registerPost(req, res, next) {
       if (err) {
         return next(err);
       }
+      req.session.justRegistered = user.id;
       return res.redirect('/auth/register/profile');
     });
   } catch (err) {
@@ -156,7 +157,7 @@ async function registerPost(req, res, next) {
 
 function registerProfileGet(req, res) {
   // From locals: req.user.id
-
+  delete req.session.justRegistered;
   return res.render('layouts/auth', {
     page: 'registerProfile',
     title: 'Add Profile Info',

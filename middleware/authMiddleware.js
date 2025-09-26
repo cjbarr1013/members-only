@@ -18,6 +18,18 @@ function isAuthRoute(req, res, next) {
   }
 }
 
+function isNotAuthRoute(req, res, next) {
+  if (!req.isAuthenticated()) {
+    next();
+  } else {
+    req.flash(
+      'errorFlash',
+      'You must log out before attempting to access this page.'
+    );
+    return res.status(401).redirect('/view/posts');
+  }
+}
+
 function isAdmin(req, res, next) {
   if (req.isAuthenticated() && req.user.admin) {
     next();
@@ -57,6 +69,21 @@ async function isSameUser(req, res, next) {
   }
 }
 
+function isNewlyRegistered(req, res, next) {
+  if (
+    !req.session.justRegistered ||
+    req.session.justRegistered !== req.user.id
+  ) {
+    req.flash(
+      'errorFlash',
+      'This page can only be accessed once after registering.'
+    );
+    return res.status(401).redirect('/view/posts');
+  }
+
+  next();
+}
+
 function normalizeCheckbox(req, res, next) {
   if (typeof req.body.adminChecked !== 'undefined') {
     req.body.adminChecked = true;
@@ -75,8 +102,10 @@ function verifyAdminValueNotUndef(req, res, next) {
 module.exports = {
   isAuthAction,
   isAuthRoute,
+  isNotAuthRoute,
   isAdmin,
   isSameUser,
+  isNewlyRegistered,
   normalizeCheckbox,
   verifyAdminValueNotUndef,
 };
