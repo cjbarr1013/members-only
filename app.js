@@ -57,6 +57,14 @@ app.use((req, res, next) => {
   res.locals.messages = req.flash();
   res.locals.reconfigureImage = reconfigureImage;
   res.locals.formatDate = formatDate;
+
+  if (!Array.isArray(req.session.prevPaths)) {
+    req.session.prevPaths = [];
+  }
+  req.session.prevPaths.push(req.originalUrl);
+  if (req.session.prevPaths.length > 10) {
+    req.session.prevPaths = req.session.prevPaths.slice(-10);
+  }
   next();
 });
 
