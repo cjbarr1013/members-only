@@ -4,11 +4,15 @@ const { registerAndLogin } = require('../helpers/auth');
 
 describe('deleteRouter', () => {
   describe('POST /post/:id route', () => {
-    it('deletes post and redirects to home if authorized as admin', async () => {
+    it('deletes post and redirects if authorized as admin', async () => {
       const { agent } = await registerAndLogin(app, true);
       const postsBefore = await db.getAllPosts();
       expect(postsBefore.length).toBeGreaterThan(0);
       const target = postsBefore[0]; // delete the most recent
+
+      // mock user flow to populate req.session.prevPaths
+      await agent.get('/view/posts');
+      await agent.get(`/view/posts/${target.id}`);
 
       const res = await agent
         .post(`/delete/post/${target.id}`)
@@ -40,7 +44,7 @@ describe('deleteRouter', () => {
   });
 
   describe('POST /comment/:commentId/:postId route', () => {
-    it('deletes comment and redirects to /view/posts/:postId if authorized as admin', async () => {
+    it('deletes comment and redirects if authorized as admin', async () => {
       const { agent } = await registerAndLogin(app, true);
 
       const posts = await db.getAllPosts();
@@ -49,6 +53,10 @@ describe('deleteRouter', () => {
 
       const postDetails = await db.getPostById(postWithComments.id);
       const comment = postDetails.post_comments[0];
+
+      // mock user flow to populate req.session.prevPaths
+      await agent.get('/view/posts');
+      await agent.get(`/view/posts/${postWithComments.id}`);
 
       const res = await agent
         .post(`/delete/comment/${comment.id}/${postWithComments.id}`)

@@ -24,7 +24,6 @@ async function postsAllGet(req, res, next) {
 
   try {
     const posts = await db.getAllPosts();
-    console.log('postsAllGet:', res.locals.messages);
     return res.render('layouts/main', {
       page: 'posts/all',
       title: 'Homepage',
@@ -107,7 +106,10 @@ async function deletePostPost(req, res, next) {
   try {
     await db.deletePost(id);
     req.flash('success', 'Post has successfully been deleted!');
-    return res.redirect('/view/posts');
+    if (req.session.prevPath === `/view/posts/${id}`) {
+      return res.redirect('/view/posts');
+    }
+    return res.redirect(req.session.prevPath);
   } catch (err) {
     return next(err);
   }

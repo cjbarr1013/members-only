@@ -38,7 +38,7 @@ app.use(
   session({
     secret: process.env.SESSION_SECRET,
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     store: sessionStore,
     cookie: {
       maxAge: 1000 * 60 * 60 * 24, // equals one day
@@ -57,6 +57,9 @@ app.use((req, res, next) => {
   res.locals.messages = req.flash();
   res.locals.reconfigureImage = reconfigureImage;
   res.locals.formatDate = formatDate;
+  if (req.method === 'GET' && req.originalUrl.startsWith('/view')) {
+    req.session.prevPath = req.originalUrl;
+  }
   next();
 });
 

@@ -44,12 +44,12 @@ async function deleteCommentPost(req, res, next) {
   // From req: post_id, comment_id
   // To database: comment_id
 
-  const { commentId, postId } = req.params;
+  const { commentId } = req.params;
 
   try {
     await db.deleteComment(commentId);
     req.flash('success', 'Comment has successfully been deleted!');
-    return res.redirect(`/view/posts/${postId}`);
+    return res.redirect(req.session.prevPath);
   } catch (err) {
     return next(err);
   }
