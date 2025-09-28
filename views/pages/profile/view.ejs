@@ -6,7 +6,7 @@
     %>
   </div>
   <div
-    class="xl:h-[calc(100vh-(theme(spacing.nav)+(--spacing(8))))] xl:relative xl:flex xl:min-h-0 xl:gap-8 xl:overflow-hidden xl:px-3 xl:pb-3"
+    class="xl:h-[calc(100vh-(theme(spacing.nav)+(--spacing(8))))] xl:relative xl:flex xl:min-h-0 xl:gap-8 xl:px-3 xl:pb-3"
   >
     <div id="posts" class="xl:flex xl:min-h-0 xl:flex-1 xl:flex-col">
       <h3
@@ -15,7 +15,7 @@
         Posts
       </h3>
       <hr
-        class="hidden xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
+        class="hidden xl:z-2 xl:block xl:h-px xl:border-0 xl:bg-gray-300 xl:dark:bg-gray-600"
       />
 
       <!--prettier-ignore-->
@@ -34,6 +34,7 @@
       </div>
       <% } %>
     </div>
+
     <div id="comments" class="hidden xl:flex xl:min-h-0 xl:flex-1 xl:flex-col">
       <h3
         class="hidden xl:mb-4 xl:block xl:self-center xl:text-xl xl:font-semibold"
