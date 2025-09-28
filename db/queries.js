@@ -108,7 +108,7 @@ async function getUserProfileByUsername(username) {
             'added', p.added,
             'comment_count', COALESCE(cc.comment_count, 0)
           )
-          ORDER BY p.added
+          ORDER BY p.id DESC
         ) AS posts,
         COUNT(*) AS post_count
       FROM posts p
@@ -129,7 +129,7 @@ async function getUserProfileByUsername(username) {
             'post_id', c.post_id,
             'post_title', p.title
           )
-          ORDER BY c.added
+          ORDER BY c.id DESC
         ) AS comments,
         COUNT(*) AS comment_count
       FROM comments c
