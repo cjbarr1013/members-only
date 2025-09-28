@@ -73,14 +73,15 @@ app.use('/', indexRouter);
 
 // error handling
 app.use((req, res) => {
-  return res.status(404).send('There is no page here, dumbass.');
+  return res
+    .status(404)
+    .render('layouts/error', { title: '404 Not Found', page: '404' });
 });
 
 app.use((err, req, res, next) => {
   const status = err.status || err.statusCode || 500;
   if (status !== 404) console.error(err);
-  res.status(status);
-  return res.send(err.message);
+  return res.status(status).json({ error: { status, message: err.message } });
 });
 
 module.exports = app;

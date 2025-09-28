@@ -49,10 +49,11 @@ async function postByIdGet(req, res, next) {
   const { id } = req.params;
 
   try {
+    if (!Number.isInteger(parseInt(id)) || id < 0) return next();
+
     const post = await db.getPostById(id);
-    if (!post) {
-      return next();
-    }
+
+    if (!post) return next();
 
     return res.render('layouts/main', {
       page: 'posts/byId',
