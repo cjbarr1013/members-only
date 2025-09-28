@@ -305,9 +305,6 @@
   .left-1\/2 {
     left: calc(1/2 * 100%);
   }
-  .z-1 {
-    z-index: 1;
-  }
   .z-2 {
     z-index: 2;
   }
@@ -334,9 +331,6 @@
   }
   .z-56 {
     z-index: 56;
-  }
-  .z-100 {
-    z-index: 100;
   }
   .container {
     width: 100%;
@@ -729,9 +723,6 @@
   }
   .overflow-hidden {
     overflow: hidden;
-  }
-  .overflow-visible {
-    overflow: visible;
   }
   .overflow-x-hidden {
     overflow-x: hidden;
@@ -1173,9 +1164,6 @@
   .text-blue-700 {
     color: var(--color-blue-700);
   }
-  .text-gray-300 {
-    color: var(--color-gray-300);
-  }
   .text-gray-400 {
     color: var(--color-gray-400);
   }
@@ -1223,10 +1211,6 @@
   }
   .shadow {
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
-    box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
-  }
-  .shadow-2xl {
-    --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
   .shadow-lg {
@@ -1904,11 +1888,6 @@
       position: relative;
     }
   }
-  .xl\:z-1 {
-    @media (width >= 80rem) {
-      z-index: 1;
-    }
-  }
   .xl\:z-2 {
     @media (width >= 80rem) {
       z-index: 2;
@@ -1952,16 +1931,6 @@
   .xl\:hidden {
     @media (width >= 80rem) {
       display: none;
-    }
-  }
-  .xl\:h-0\.5 {
-    @media (width >= 80rem) {
-      height: calc(var(--spacing) * 0.5);
-    }
-  }
-  .xl\:h-1 {
-    @media (width >= 80rem) {
-      height: calc(var(--spacing) * 1);
     }
   }
   .xl\:h-\[calc\(100vh-\(theme\(spacing\.nav\)\+\(--spacing\(8\)\)\)\)\] {
@@ -2045,34 +2014,6 @@
       background-color: var(--color-gray-300);
     }
   }
-  .xl\:bg-gradient-to-b {
-    @media (width >= 80rem) {
-      --tw-gradient-position: to bottom in oklab;
-      background-image: linear-gradient(var(--tw-gradient-stops));
-    }
-  }
-  .xl\:from-transparent {
-    @media (width >= 80rem) {
-      --tw-gradient-from: transparent;
-      --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-    }
-  }
-  .xl\:via-gray-300\/50 {
-    @media (width >= 80rem) {
-      --tw-gradient-via: color-mix(in srgb, #D1D5DB 50%, transparent);
-      @supports (color: color-mix(in lab, red, red)) {
-        --tw-gradient-via: color-mix(in oklab, var(--color-gray-300) 50%, transparent);
-      }
-      --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
-      --tw-gradient-stops: var(--tw-gradient-via-stops);
-    }
-  }
-  .xl\:to-transparent {
-    @media (width >= 80rem) {
-      --tw-gradient-to: transparent;
-      --tw-gradient-stops: var(--tw-gradient-via-stops, var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-to) var(--tw-gradient-to-position));
-    }
-  }
   .xl\:px-1 {
     @media (width >= 80rem) {
       padding-inline: calc(var(--spacing) * 1);
@@ -2108,12 +2049,6 @@
     @media (width >= 80rem) {
       --tw-font-weight: var(--font-weight-semibold);
       font-weight: var(--font-weight-semibold);
-    }
-  }
-  .xl\:shadow-2xl {
-    @media (width >= 80rem) {
-      --tw-shadow: 0 25px 50px -12px var(--tw-shadow-color, rgb(0 0 0 / 0.25));
-      box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
     }
   }
   .\32 xl\:w-\[calc\(\(100\%-16px\)\/3\)\] {
@@ -2424,18 +2359,6 @@
     @media (width >= 80rem) {
       &:where(.dark, .dark *) {
         background-color: var(--color-gray-600);
-      }
-    }
-  }
-  .xl\:dark\:via-gray-600\/50 {
-    @media (width >= 80rem) {
-      &:where(.dark, .dark *) {
-        --tw-gradient-via: color-mix(in srgb, #4B5563 50%, transparent);
-        @supports (color: color-mix(in lab, red, red)) {
-          --tw-gradient-via: color-mix(in oklab, var(--color-gray-600) 50%, transparent);
-        }
-        --tw-gradient-via-stops: var(--tw-gradient-position), var(--tw-gradient-from) var(--tw-gradient-from-position), var(--tw-gradient-via) var(--tw-gradient-via-position), var(--tw-gradient-to) var(--tw-gradient-to-position);
-        --tw-gradient-stops: var(--tw-gradient-via-stops);
       }
     }
   }
@@ -3115,48 +3038,6 @@
   initial-value: "";
   inherits: false;
 }
-@property --tw-gradient-position {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-gradient-from {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
-}
-@property --tw-gradient-via {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
-}
-@property --tw-gradient-to {
-  syntax: "<color>";
-  inherits: false;
-  initial-value: #0000;
-}
-@property --tw-gradient-stops {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-gradient-via-stops {
-  syntax: "*";
-  inherits: false;
-}
-@property --tw-gradient-from-position {
-  syntax: "<length-percentage>";
-  inherits: false;
-  initial-value: 0%;
-}
-@property --tw-gradient-via-position {
-  syntax: "<length-percentage>";
-  inherits: false;
-  initial-value: 50%;
-}
-@property --tw-gradient-to-position {
-  syntax: "<length-percentage>";
-  inherits: false;
-  initial-value: 100%;
-}
 @keyframes drop-in-out {
   0%, 100% {
     transform: translateY(-500px);
@@ -3217,15 +3098,6 @@
       --tw-duration: initial;
       --tw-ease: initial;
       --tw-content: "";
-      --tw-gradient-position: initial;
-      --tw-gradient-from: #0000;
-      --tw-gradient-via: #0000;
-      --tw-gradient-to: #0000;
-      --tw-gradient-stops: initial;
-      --tw-gradient-via-stops: initial;
-      --tw-gradient-from-position: 0%;
-      --tw-gradient-via-position: 50%;
-      --tw-gradient-to-position: 100%;
     }
   }
 }
