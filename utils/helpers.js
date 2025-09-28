@@ -1,4 +1,4 @@
-const { format } = require('date-fns');
+const { format, parse } = require('date-fns');
 
 function reconfigureImage(url, size = 'sm', username = 'default') {
   const sizes = { sm: 100, lg: 300 };
@@ -26,7 +26,9 @@ function formatDate(date, use = 'timestamp') {
     return format(new Date(date), 'hh:mm aaa · M/d/yy');
   }
   if (use === 'birthday') {
-    return format(new Date(date), 'MMM do, y');
+    // Parse date-only string without timezone conversion
+    const parsedDate = parse(date, 'yyyy-MM-dd', new Date());
+    return format(parsedDate, 'MMM do, y');
   }
   return date;
 }
