@@ -22,6 +22,6 @@
     <!--prettier-ignore-->
     <% if (currentUser && currentUser.admin) { %> <%- include('./buttonDeleteItem', {postId: post.id, commentId: comment.id} ) %> <% } %>
   </div>
-  <p class="wrap-anywhere"><%= comment.message %></p>
+  <p class="wrap-anywhere whitespace-pre-wrap"><%= comment.message %></p>
   <time class="self-end text-sm"><%= formatDate(comment.added) %></time>
 </div>
