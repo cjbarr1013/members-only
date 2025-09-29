@@ -1,6 +1,6 @@
 const pool = require('./pool');
 
-async function getAllPosts() {
+async function getAllPosts(startIndex, limit, sort) {
   const { rows } = await pool.query(
     `
     SELECT
@@ -20,10 +20,18 @@ async function getAllPosts() {
       GROUP BY post_id
     ) cc ON cc.post_id = p.id
     ORDER BY p.id DESC
-    `
+    LIMIT ($2) OFFSET ($1)
+    `,
+    [startIndex, limit]
   );
 
   return rows;
+}
+
+async function getPostTotal() {
+  const { rows } = await pool.query('SELECT COUNT(*) AS total FROM posts');
+
+  return rows[0];
 }
 
 async function getPostById(id) {
@@ -219,6 +227,7 @@ async function deleteComment(id) {
 
 module.exports = {
   getAllPosts,
+  getPostTotal,
   getPostById,
   getUserByUsername,
   getUserById,

@@ -1,15 +1,18 @@
-<div class="grid-container relative w-full">
-  <div
-    class="grid-sizer w-full lg:w-[calc((100%-8px)/2)] 2xl:w-[calc((100%-16px)/3)]"
-  ></div>
-  <% posts.forEach(post => { %>
-  <!--prettier-ignore-->
-  <%- include('../../components/postCardFeed', {post}) %>
+<div class="relative flex min-h-0 w-full flex-col gap-8">
+  <div class="grid-container relative w-full">
+    <div
+      class="grid-sizer w-full lg:w-[calc((100%-8px)/2)] 2xl:w-[calc((100%-16px)/3)]"
+    ></div>
+    <% posts.forEach(post => { %>
+    <!--prettier-ignore-->
+    <%- include('../../components/postCardFeed', {post}) %>
   <% }) %>
   <% if (currentUser) { %>
     <%- include('../../components/buttonNewPost') %>
     <%- include('../../components/modal', { modalId: 'new-post-modal', modalTitle: 'Create a new post!', bodyPath: '../forms/post' }) %>
   <% if (currentUser && showAddPostModal) { %>
-  <script src="/js/showNewPostModalCheck.js"></script>
-  <% } %> <% } %>
+    <script src="/js/showNewPostModalCheck.js"></script>
+    <% } %> <% } %>
+  </div>
+  <%- include('../../components/pagination') %>
 </div>

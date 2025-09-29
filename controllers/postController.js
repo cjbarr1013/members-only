@@ -22,12 +22,15 @@ async function postsAllGet(req, res, next) {
   // From database: list of all posts (post_id, title, message, COUNT(comments),
   //    added, username, pic_url, admin)
 
+  const { startIndex, limit, sort } = res.pagination;
+
   try {
-    const posts = await db.getAllPosts();
+    const posts = await db.getAllPosts(startIndex, limit, sort);
     return res.render('layouts/main', {
       page: 'posts/all',
       title: 'Homepage',
       posts,
+      pagination: res.pagination,
       formData: {
         title: '',
         message: '',
@@ -72,14 +75,16 @@ async function addPostPost(req, res, next) {
   // To database: title, message, user_id
 
   const { title, message } = req.body;
+  const { page, limit, sort, startIndex } = res.pagination;
   const errors = validationResult(req);
 
   if (!errors.isEmpty()) {
-    const posts = await db.getAllPosts();
+    const posts = await db.getAllPosts(startIndex, limit, sort);
     return res.status(400).render('layouts/main', {
       page: 'posts/all',
       title: 'Homepage',
       posts,
+      pagination: res.pagination,
       formData: {
         title,
         message,
@@ -92,7 +97,7 @@ async function addPostPost(req, res, next) {
   try {
     await db.addPost(title, message, req.user.id);
     req.flash('success', 'Post has successfully been submitted!');
-    return res.redirect('/view/posts');
+    return res.redirect(`/view/posts?page=${page}&limit=${limit}&sort=${sort}`);
   } catch (err) {
     return next(err);
   }

@@ -1,0 +1,65 @@
+<div class="flex flex-col items-center">
+  <!-- Help text -->
+  <span class="text-sm text-gray-700 dark:text-gray-400">
+    Showing
+    <span class="font-semibold text-gray-900 dark:text-white"
+      ><%= pagination.startIndex + 1 %></span
+    >
+    to
+    <span class="font-semibold text-gray-900 dark:text-white"
+      ><%= pagination.endIndex %></span
+    >
+    of
+    <span class="font-semibold text-gray-900 dark:text-white"
+      ><%= pagination.totalPosts %></span
+    >
+    Posts
+  </span>
+  <div class="xs:mt-0 mt-2 inline-flex gap-2">
+    <% if (pagination.prev.exists) { %>
+    <a
+      href="/view/posts?page=<%= pagination.prev.page %>&limit=<%= pagination.limit %>&sort=<%= pagination.sort %>"
+      class="flex h-10 items-center justify-center rounded-lg bg-gray-100 px-4 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+    >
+      <svg
+        class="me-2 h-3.5 w-3.5 rtl:rotate-180"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 14 10"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13 5H1m0 0 4 4M1 5l4-4"
+        />
+      </svg>
+      Prev
+    </a>
+    <% } %> <% if (pagination.next.exists) { %>
+    <a
+      href="/view/posts?page=<%= pagination.next.page %>&limit=<%= pagination.limit %>&sort=<%= pagination.sort %>"
+      class="flex h-10 items-center justify-center rounded-lg bg-gray-100 px-4 text-base font-medium text-gray-700 hover:bg-gray-200 hover:text-gray-900 dark:bg-gray-700 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
+    >
+      Next
+      <svg
+        class="ms-2 h-3.5 w-3.5 rtl:rotate-180"
+        aria-hidden="true"
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 14 10"
+      >
+        <path
+          stroke="currentColor"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M1 5h12m0 0L9 1m4 4L9 9"
+        />
+      </svg>
+    </a>
+    <% } %>
+  </div>
+</div>

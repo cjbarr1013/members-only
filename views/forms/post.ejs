@@ -1,4 +1,8 @@
-<form action="/add/post" method="post" class="flex flex-col gap-4">
+<form
+  action="/add/post?page=<%= pagination.page %>&limit=<%= pagination.limit %>&sort=<%= pagination.sort %>"
+  method="post"
+  class="flex flex-col gap-4"
+>
   <%- include('../components/formErrors') %>
   <div class="flex flex-col gap-3">
     <!--prettier-ignore-->
