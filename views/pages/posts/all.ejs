@@ -1,4 +1,9 @@
 <div class="relative flex min-h-0 w-full flex-col gap-8">
+  <div class="-mb-4 flex justify-start gap-4">
+    <!--prettier-ignore-->
+    <%- include('../../components/formSelect', {id: 'sort', label: 'Sort By:', compValue: pagination.sort, items: [{value: 'desc', label: 'Newest to Oldest'}, {value: 'asc', label: 'Oldest to Newest'}, {value: 'cc-desc', label: 'Most Comments'}, {value: 'cc-asc', label: 'Fewest Comments'}]}) %>
+    <%- include('../../components/formSelect', {id: 'limit', label: 'Per Page:', compValue: pagination.limit, items: [{value: 25, label: 25}, {value: 50, label: 50}, {value: 100, label: 100}]}) %>
+  </div>
   <div class="grid-container relative w-full">
     <div
       class="grid-sizer w-full lg:w-[calc((100%-8px)/2)] 2xl:w-[calc((100%-16px)/3)]"
