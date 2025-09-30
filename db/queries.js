@@ -1,6 +1,14 @@
 const pool = require('./pool');
 
 async function getAllPosts(startIndex, limit, sort) {
+  const sortSQL = {
+    desc: 'p.id DESC',
+    asc: 'p.id ASC',
+    'cc-desc': 'comment_count DESC, p.id DESC',
+    'cc-asc': 'comment_count ASC, p.id ASC',
+  };
+  const orderClause = sortSQL[sort] || sortSQL.desc;
+
   const { rows } = await pool.query(
     `
     SELECT
@@ -19,8 +27,8 @@ async function getAllPosts(startIndex, limit, sort) {
       FROM comments
       GROUP BY post_id
     ) cc ON cc.post_id = p.id
-    ORDER BY p.id DESC
-    LIMIT ($2) OFFSET ($1)
+    ORDER BY ${orderClause}
+    LIMIT $2 OFFSET $1
     `,
     [startIndex, limit]
   );

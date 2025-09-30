@@ -1,0 +1,35 @@
+<form action="/view/posts" method="get">
+  <input type="hidden" name="page" value="1">
+
+  <% if (id !== 'sort') { %>
+   <input type="hidden" name="sort" value="<%= pagination.sort %>">
+  <% } %>
+
+  <% if (id !== 'limit') { %>
+   <input type="hidden" name="limit" value="<%= pagination.limit %>">
+  <% } %>
+
+  <div class="flex items-center justify-center gap-2 whitespace-nowrap">
+    <label
+      for="<%= id %>"
+      class="text-sm font-medium text-gray-900 dark:text-white"
+      ><%= label %></label
+    >
+    <select
+      name="<%= id %>"
+      id="<%= id %>"
+      class="rounded-lg border-0 bg-gray-100 py-2 ps-4 pe-8 text-sm text-gray-900 dark:border-gray-600 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400"
+    >
+      <% items.forEach(item => { %>
+      <option 
+        value="<%= item.value %>"
+        <%= item.value === compValue ? ' selected' : '' %>
+      >
+        <%= item.label %>
+      </option>
+      <% }); %>
+    </select>
+  </div>
+
+  <noscript><button type="submit">Go</button></noscript>
+</form>

@@ -53,13 +53,18 @@ app.use(flash());
 
 // misc. middleware and variables
 app.use((req, res, next) => {
+  // locals
   res.locals.currentUser = req.user;
   res.locals.messages = req.flash();
   res.locals.reconfigureImage = reconfigureImage;
   res.locals.formatDate = formatDate;
+
+  // session
   if (req.method === 'GET' && req.originalUrl.startsWith('/view')) {
     req.session.prevPath = req.originalUrl;
   }
+  if (req.query.sort) req.session.sort = req.query.sort;
+  if (req.query.limit) req.session.limit = parseInt(req.query.limit);
   next();
 });
 

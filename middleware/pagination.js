@@ -2,8 +2,8 @@ const db = require('../db/queries');
 
 async function normalizePaginationInfo(req, res, next) {
   const page = parseInt(req.query.page) || 1;
-  const limit = parseInt(req.query.limit) || 25;
-  const sort = req.query.sort || 'desc';
+  const limit = req.session.limit || 25;
+  const sort = req.session.sort || 'desc';
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
 
