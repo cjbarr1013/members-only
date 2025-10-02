@@ -6,9 +6,11 @@ const {
   isAuthRoute,
   isNotAuthRoute,
   isNewlyRegistered,
+  normalizeHasPic,
   normalizeCheckbox,
   verifyAdminValueNotUndef,
 } = require('../middleware/authMiddleware');
+const parseImageFile = require('../middleware/multerMiddleware');
 const authRouter = Router();
 
 // routes
@@ -31,6 +33,8 @@ authRouter.get(
 authRouter.post(
   '/register/profile',
   isAuthAction,
+  parseImageFile,
+  normalizeHasPic,
   userController.validateUserProfile,
   userController.registerProfilePost
 );

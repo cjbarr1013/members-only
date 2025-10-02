@@ -7,7 +7,7 @@
       >
         <img
           class="h-8 w-8 rounded-lg object-cover"
-          src="<%= reconfigureImage(comment.pic_url, 'sm', comment.username) %>"
+          src="<%= comment.has_pic ? getImgUrlSm(comment.username, comment.pic_version) : '/images/placeholder-sm.png' %>"
           alt=""
           loading="lazy"
           width="32"

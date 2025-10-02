@@ -11,7 +11,7 @@
         <div class="flex items-center gap-2 py-1.5 ps-2 pe-4">
           <img
             class="h-10 w-10 rounded-lg object-cover"
-            src="<%= reconfigureImage(currentUser.pic_url, 'sm', currentUser.username) %>"
+            src="<%= currentUser.has_pic ? getImgUrlSm(currentUser.username, currentUser.pic_version) : '/images/placeholder-sm.png' %>"
             alt="user photo"
             loading="lazy"
             width="40"

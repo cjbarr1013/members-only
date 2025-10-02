@@ -18,7 +18,8 @@ async function getAllPosts(startIndex, limit, sort) {
       p.added,
       COALESCE(cc.comment_count, 0) AS comment_count,
       u.username,
-      u.pic_url,
+      u.has_pic,
+      u.pic_version,
       u.admin
     FROM posts p
     INNER JOIN users u ON u.id = p.user_id
@@ -57,7 +58,8 @@ async function getPostById(id) {
             'message', c.message,
             'added', c.added,
             'username', cu.username,
-            'pic_url', cu.pic_url,
+            'has_pic', cu.has_pic,
+            'pic_version', cu.pic_version,
             'admin', cu.admin
           )
           ORDER BY c.id DESC
@@ -66,14 +68,15 @@ async function getPostById(id) {
       ) AS post_comments,
       COUNT(c.id) AS comment_count,
       u.username,
-      u.pic_url,
+      u.has_pic,
+      u.pic_version,
       u.admin
     FROM posts p
     INNER JOIN users u ON u.id = p.user_id
     LEFT JOIN comments c ON c.post_id = p.id
     LEFT JOIN users cu ON cu.id = c.user_id
     WHERE p.id = $1
-    GROUP BY p.id, p.title, p.message, p.added, u.username, u.pic_url, u.admin
+    GROUP BY p.id, p.title, p.message, p.added, u.username, u.has_pic, u.pic_version, u.admin
     `,
     [id]
   );
@@ -104,7 +107,8 @@ async function getUserProfileByUsername(username) {
         'first', u.first,
         'last', u.last,
         'admin', u.admin,
-        'pic_url', u.pic_url,
+        'has_pic', u.has_pic,
+        'pic_version', u.pic_version,
         'bio', u.bio,
         'loc', u.loc,
         'birthday', u.birthday
@@ -162,7 +166,7 @@ async function getUserProfileByUsername(username) {
 
 async function getUserInfoByUsername(username) {
   const { rows } = await pool.query(
-    `SELECT pic_url, bio, loc, birthday FROM users WHERE username = $1`,
+    `SELECT has_pic, pic_version, bio, loc, birthday FROM users WHERE username = $1`,
     [username]
   );
 
@@ -186,10 +190,10 @@ async function addUser(first, last, username, hashedPassword, admin) {
   return rows[0];
 }
 
-async function addUserInfo(id, admin, picUrl, bio, loc, birthday) {
+async function addUserInfo(id, admin, hasPic, picVersion, bio, loc, birthday) {
   const { rows } = await pool.query(
-    `UPDATE users SET admin = ($2), pic_url = ($3), bio = ($4), loc = ($5), birthday = ($6) WHERE id = ($1)`,
-    [id, admin, picUrl, bio, loc, birthday]
+    `UPDATE users SET admin = ($2), has_pic = ($3), pic_version = ($4) bio = ($5), loc = ($6), birthday = ($7) WHERE id = ($1)`,
+    [id, admin, hasPic, picVersion, bio, loc, birthday]
   );
 
   return rows[0];
@@ -214,14 +218,15 @@ async function editUserInfo(
   first,
   last,
   admin,
-  picUrl,
+  hasPic,
+  picVersion,
   bio,
   loc,
   birthday
 ) {
   await pool.query(
-    `UPDATE users SET first = ($2), last = ($3), admin = ($4), pic_url = ($5), bio = ($6), loc = ($7), birthday = ($8) WHERE id = ($1)`,
-    [id, first, last, admin, picUrl, bio, loc, birthday]
+    `UPDATE users SET first = ($2), last = ($3), admin = ($4), has_pic = ($5), pic_version = ($6), bio = ($7), loc = ($8), birthday = ($9) WHERE id = ($1)`,
+    [id, first, last, admin, hasPic, picVersion, bio, loc, birthday]
   );
 }
 

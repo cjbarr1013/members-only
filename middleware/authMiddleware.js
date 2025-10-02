@@ -84,6 +84,16 @@ function isNewlyRegistered(req, res, next) {
   next();
 }
 
+function normalizeHasPic(req, res, next) {
+  if (typeof req.user.has_pic !== 'undefined') {
+    req.body.hasPic = req.user.has_pic;
+  } else {
+    req.body.hasPic = false;
+  }
+
+  next();
+}
+
 function normalizeCheckbox(req, res, next) {
   if (typeof req.body.adminChecked !== 'undefined') {
     req.body.adminChecked = true;
@@ -106,6 +116,7 @@ module.exports = {
   isAdmin,
   isSameUser,
   isNewlyRegistered,
+  normalizeHasPic,
   normalizeCheckbox,
   verifyAdminValueNotUndef,
 };

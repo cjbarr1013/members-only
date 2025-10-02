@@ -23,7 +23,6 @@ async function postsAllGet(req, res, next) {
   //    added, username, pic_url, admin)
 
   const { startIndex, limit, sort } = res.pagination;
-  console.log('Post get', req.session);
 
   try {
     const posts = await db.getAllPosts(startIndex, limit, sort);

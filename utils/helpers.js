@@ -1,24 +1,62 @@
 const { format, parse } = require('date-fns');
+const cloudinary = require('../config/cloudinary');
 
-function reconfigureImage(url, size = 'sm', username = 'default') {
-  const sizes = { sm: 100, lg: 300 };
+async function uploadImage(imagePath, username) {
+  const options = {
+    asset_folder: 'members-only-user-images',
+    resource_type: 'image',
+    public_id: username,
+    overwrite: true,
+    allowed_formats: ['png', 'jpg', 'jpeg', 'webp'],
+    transformation: [
+      { width: 300, height: 300, crop: 'limit' },
+      { quality: 'auto', fetch_format: 'auto' },
+    ],
+  };
 
-  if (!url) return `/images/placeholder-${size}.png`;
-  try {
-    const u = new URL(url);
-    if (u.hostname.includes('i.pravatar.cc')) {
-      u.pathname = `/${sizes[size]}`;
-      u.searchParams.set('u', username);
-      return u.toString();
-    } else {
-      u.search = '';
-      u.searchParams.set('w', sizes[size]);
-      u.searchParams.set('auto', 'format');
-      return u.toString();
-    }
-  } catch {
-    return url;
-  }
+  const result = await cloudinary.uploader.upload(imagePath, options);
+  console.log(result);
+}
+
+async function uploadImageBuffer(buffer, username) {
+  return new Promise((resolve, reject) => {
+    const stream = cloudinary.uploader.upload_stream(
+      {
+        folder: 'members-only-user-images',
+        public_id: username,
+        overwrite: true,
+        invalidate: true,
+        resource_type: 'image',
+        allowed_formats: ['png', 'jpg', 'jpeg', 'webp'],
+        transformation: [{ width: 500, height: 500, crop: 'limit' }],
+      },
+      (err, result) => {
+        if (err) return reject(err);
+        resolve(result);
+      }
+    );
+    stream.end(buffer);
+  });
+}
+
+function getImageUrlSm(username, version) {
+  return cloudinary.url(`members-only-user-images/${username}`, {
+    version,
+    transformation: [
+      { width: 80, height: 80, gravity: 'faces', crop: 'fill' },
+      { quality: 'auto', fetch_format: 'auto' },
+    ],
+  });
+}
+
+function getImageUrlLg(username, version) {
+  return cloudinary.url(`members-only-user-images/${username}`, {
+    version,
+    transformation: [
+      { width: 300, height: 300, gravity: 'faces', crop: 'fill' },
+      { quality: 'auto', fetch_format: 'auto' },
+    ],
+  });
 }
 
 function formatDate(date, use = 'timestamp') {
@@ -34,6 +72,9 @@ function formatDate(date, use = 'timestamp') {
 }
 
 module.exports = {
-  reconfigureImage,
   formatDate,
+  uploadImage,
+  uploadImageBuffer,
+  getImageUrlSm,
+  getImageUrlLg,
 };

@@ -9,7 +9,7 @@
       >
         <img
           class="h-8 w-8 rounded-lg object-cover"
-          src="<%= reconfigureImage(post.pic_url, 'sm', post.username) %>"
+          src="<%= post.has_pic ? getImgUrlSm(post.username, post.pic_version) : '/images/placeholder-sm.png' %>"
           alt=""
           loading="lazy"
           width="32"

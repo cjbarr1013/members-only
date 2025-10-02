@@ -1,0 +1,22 @@
+<div>
+  <div class="flex flex-col gap-2">
+    <label
+      class="font-medium text-gray-900"
+      for="<%= id %>"
+      >Upload user image</label
+    >
+    <input
+      class="appearance-none w-full cursor-pointer rounded-lg border-1 border-gray-300 bg-transparent text-gray-900 focus:border-blue-600 focus:ring-0 focus:outline-none"
+      aria-describedby="file_input_help"
+      id="<%= id %>"
+      name="<%= id %>"
+      type="file"
+      accept=".png,.jpg,.jpeg,.webp" 
+      <%= required ? ' required' : ''%>
+    />
+  </div>
+
+  <p class="mt-2 text-sm text-gray-500" id="file_input_help">
+    * Only PNG, JPG, JPEG or WEBP formats accepted. &lt;10MB file size.
+  </p>
+</div>

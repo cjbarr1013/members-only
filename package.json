@@ -38,6 +38,7 @@
   "dependencies": {
     "@tailwindcss/cli": "^4.1.12",
     "bcryptjs": "^3.0.2",
+    "cloudinary": "^2.7.0",
     "connect-flash": "^0.1.1",
     "connect-pg-simple": "^10.0.0",
     "date-fns": "^4.1.0",
@@ -47,6 +48,7 @@
     "express-session": "^1.18.2",
     "express-validator": "^7.2.1",
     "flowbite": "^3.1.2",
+    "multer": "^2.0.2",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pg": "^8.16.3",

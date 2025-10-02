@@ -1,6 +1,7 @@
-const { body, validationResult } = require('express-validator');
+const { check, body, validationResult } = require('express-validator');
 const bcrypt = require('bcryptjs');
 const db = require('../db/queries');
+const { uploadImageBuffer } = require('../utils/helpers');
 
 const validateNewUser = [
   body('first')
@@ -81,11 +82,6 @@ const validateUserName = [
 ];
 
 const validateUserProfile = [
-  body('picUrl')
-    .trim()
-    .optional({ checkFalsy: true })
-    .isURL()
-    .withMessage('Picture URL must be a valid URL.'),
   body('bio')
     .optional({ checkFalsy: true })
     .isLength({ max: 250 })
@@ -98,6 +94,20 @@ const validateUserProfile = [
     .optional({ checkFalsy: true })
     .isISO8601({ strict: true })
     .withMessage('Birthday must be a valid date (YYYY-MM-DD).'),
+  check('pic').custom(async (value, { req }) => {
+    if (!req.file) return true;
+    try {
+      const result = await uploadImageBuffer(
+        req.file.buffer,
+        req.user.username
+      );
+      req.body.hasPic = true;
+      req.cloudinaryUpload = result;
+      return true;
+    } catch {
+      throw new Error('File failed to upload.');
+    }
+  }),
 ];
 
 function registerGet(req, res) {
@@ -163,7 +173,6 @@ function registerProfileGet(req, res) {
     title: 'Add Profile Info',
     errors: [],
     formData: {
-      picUrl: '',
       bio: '',
       loc: '',
       birthday: '',
@@ -176,9 +185,8 @@ async function registerProfilePost(req, res, next) {
   // From req: pic_url, bio, loc, birthday
   // To database: id, pic_url, bio, loc, birthday
 
-  const { picUrl, bio, loc, birthday } = req.body;
+  const { hasPic, bio, loc, birthday } = req.body;
   const errors = validationResult(req);
-  if (!errors.isEmpty()) console.log(errors);
 
   if (!errors.isEmpty()) {
     return res.status(400).render('layouts/auth', {
@@ -186,7 +194,6 @@ async function registerProfilePost(req, res, next) {
       title: 'Add Profile Info',
       errors: errors.array(),
       formData: {
-        picUrl,
         bio,
         loc,
         birthday,
@@ -198,7 +205,8 @@ async function registerProfilePost(req, res, next) {
     await db.addUserInfo(
       req.user.id,
       req.user.admin,
-      picUrl,
+      hasPic,
+      req.cloudinaryUpload?.version || null,
       bio,
       loc,
       birthday || null
@@ -256,7 +264,6 @@ async function profileGet(req, res, next) {
         last: userProfile.info.last,
         adminChecked: false,
         adminValue: '',
-        picUrl: userProfile.info.pic_url,
         bio: userProfile.info.bio,
         loc: userProfile.info.loc,
         birthday: userProfile.info.birthday,
@@ -273,7 +280,7 @@ async function editProfilePost(req, res, next) {
   // From req: pic_url, bio, loc, birthday
   // To database: id, pic_url, bio, loc, birthday
 
-  const { first, last, adminChecked, adminValue, picUrl, bio, loc, birthday } =
+  const { first, last, adminChecked, adminValue, hasPic, bio, loc, birthday } =
     req.body;
   const { username } = req.params;
   const errors = validationResult(req);
@@ -290,7 +297,6 @@ async function editProfilePost(req, res, next) {
         last,
         adminChecked,
         adminValue,
-        picUrl,
         bio,
         loc,
         birthday,
@@ -307,10 +313,11 @@ async function editProfilePost(req, res, next) {
       first,
       last,
       isAdmin,
-      picUrl,
+      hasPic,
+      req.cloudinaryUpload?.version || null,
       bio,
       loc,
-      birthday
+      birthday || null
     );
     return res.redirect(`/view/profile/${req.user.username}`);
   } catch (err) {

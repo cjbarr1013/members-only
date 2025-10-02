@@ -3,7 +3,7 @@
 >
   <img
     class="h-30 w-30 rounded-lg object-cover"
-    src="<%= reconfigureImage(user.pic_url, 'lg', user.username) %>"
+    src="<%= user.has_pic ? getImgUrlLg(user.username, user.pic_version) : '/images/placeholder-lg.png' %>"
     alt="user's profile image"
     loading="lazy"
     width="120"
