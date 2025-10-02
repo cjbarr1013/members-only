@@ -2,12 +2,13 @@
   id="<%= modalId %>"
   tabindex="-1"
   aria-hidden="true"
-  class="fixed top-0 right-0 left-0 z-50 hidden h-[calc(100%-1rem)] max-h-full w-full items-center justify-center overflow-x-hidden overflow-y-auto md:inset-0"
+  class="fixed inset-0 z-50 hidden overflow-y-auto bg-black/40 p-4"
 >
-  <div class="relative max-h-full w-full max-w-xl min-w-xs p-4">
-    <!-- Modal content -->
+  <div
+    class="flex min-h-full w-full max-w-xl min-w-xs items-center justify-center"
+  >
     <div
-      class="relative rounded-lg border-gray-300 bg-white shadow-sm dark:border-gray-600 dark:bg-gray-700"
+      class="flex max-h-[calc(100vh-2rem)] w-full flex-col rounded-lg bg-white shadow-sm dark:bg-gray-700"
     >
       <!-- Modal header -->
       <div
