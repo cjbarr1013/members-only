@@ -59,6 +59,7 @@ app.use((req, res, next) => {
   res.locals.getImgUrlSm = getImageUrlSm;
   res.locals.getImgUrlLg = getImageUrlLg;
   res.locals.formatDate = formatDate;
+  res.locals.path = req.path;
 
   // session
   if (req.method === 'GET' && req.originalUrl.startsWith('/view')) {

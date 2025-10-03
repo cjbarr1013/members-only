@@ -6,6 +6,7 @@
       <a
         href="/view/profile/<%= post.username %>"
         class="group flex items-center gap-2"
+        aria-label="View user profile"
       >
         <img
           class="h-8 w-8 rounded-lg object-cover"
@@ -25,8 +26,12 @@
     <% if (currentUser && currentUser.admin) { %> <%- include('./buttonDeleteItem', {postId: post.id, commentId: null}) %> <% } %>
   </div>
   <div class="flex grow flex-col gap-1 wrap-anywhere">
-    <h2 class="line-clamp-3 text-lg/6 font-semibold">
-      <a href="/view/posts/<%= post.id %>" class="hover:underline">
+    <h2 class="line-clamp-3 p-0.5 text-lg/6 font-semibold">
+      <a
+        href="/view/posts/<%= post.id %>"
+        class="hover:underline"
+        aria-label="View page for post"
+      >
         <%= post.title %>
       </a>
     </h2>
