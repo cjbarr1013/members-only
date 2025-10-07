@@ -192,7 +192,7 @@ async function addUser(first, last, username, hashedPassword, admin) {
 
 async function addUserInfo(id, admin, hasPic, picVersion, bio, loc, birthday) {
   const { rows } = await pool.query(
-    `UPDATE users SET admin = ($2), has_pic = ($3), pic_version = ($4) bio = ($5), loc = ($6), birthday = ($7) WHERE id = ($1)`,
+    `UPDATE users SET admin = ($2), has_pic = ($3), pic_version = ($4), bio = ($5), loc = ($6), birthday = ($7) WHERE id = ($1)`,
     [id, admin, hasPic, picVersion, bio, loc, birthday]
   );
 

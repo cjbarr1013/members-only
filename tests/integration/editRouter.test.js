@@ -5,7 +5,7 @@ const { registerAndLogin } = require('../helpers/auth');
 
 describe('editRouter', () => {
   describe('POST /profile/:username route', () => {
-    it('edits user and redirects to /view/profile/:username when authoriazed and same user', async () => {
+    it('edits user and redirects to /view/profile/:username when authorized and same user', async () => {
       const { agent, username } = await registerAndLogin(app);
 
       const res = await agent
@@ -14,7 +14,9 @@ describe('editRouter', () => {
         .send({
           first: 'Jace',
           last: 'Smith',
-          picUrl: 'https://example.com/p.png',
+          adminChecked: undefined,
+          adminValue: '',
+          hasPic: false,
           bio: 'Hello world',
           loc: 'NY',
           birthday: '2000-01-01',
@@ -26,7 +28,7 @@ describe('editRouter', () => {
       // Verify persisted values
       const saved = await db.getUserInfoByUsername(username);
       expect(saved).toMatchObject({
-        pic_url: 'https://example.com/p.png',
+        has_pic: false,
         bio: 'Hello world',
         loc: 'NY',
       });

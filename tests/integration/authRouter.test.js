@@ -133,7 +133,7 @@ describe('authRouter', () => {
       const { agent, username } = await registerAndLogin(app);
 
       const res = await agent.post('/auth/register/profile').type('form').send({
-        picUrl: 'https://example.com/p.png',
+        hasPic: false,
         bio: 'Hello world',
         loc: 'NY',
         birthday: '2000-01-01',
@@ -143,7 +143,7 @@ describe('authRouter', () => {
       // Verify persisted values
       const saved = await db.getUserInfoByUsername(username);
       expect(saved).toMatchObject({
-        pic_url: 'https://example.com/p.png',
+        has_pic: false,
         bio: 'Hello world',
         loc: 'NY',
       });
@@ -152,7 +152,7 @@ describe('authRouter', () => {
     it('returns 400 when input is not valid', async () => {
       const { agent } = await registerAndLogin(app);
       const res = await agent.post('/auth/register/profile').type('form').send({
-        picUrl: 'not-a-url', // invalid URL
+        loc: 'this text exceeds 30 characters!',
       });
       expect(res.statusCode).toBe(400);
     });
