@@ -70,6 +70,12 @@ app.use((req, res, next) => {
   next();
 });
 
+// serve Flowbite directly from node_modules (no manual copying)
+app.use(
+  '/vendor/flowbite',
+  express.static(path.join(__dirname, 'node_modules/flowbite/dist'))
+);
+
 // routes
 app.use('/add', addRouter);
 app.use('/auth', authRouter);

@@ -47,7 +47,7 @@ authRouter.post(
     failureRedirect: '/auth/login',
     successFlash: true,
     failureFlash: true,
-    keepSessionInfo: true,
+    keepSessionInfo: true, // needed so error/success msgs persist to redirect
   })
 );
 

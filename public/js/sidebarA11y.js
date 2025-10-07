@@ -21,15 +21,34 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   // Watch for Flowbite changing aria-hidden
-  const observer = new MutationObserver(() => {
+  const sidebarQueryObserver = new MutationObserver(() => {
     if (query.matches && sidebar.getAttribute('aria-hidden') === 'true') {
       sync();
     }
   });
 
-  observer.observe(sidebar, {
+  sidebarQueryObserver.observe(sidebar, {
     attributes: true,
     attributeFilter: ['aria-hidden', 'class'],
+  });
+
+  // Toggle tab index when sidebar visibility is toggled
+  const sidebarRoleObserver = new MutationObserver(() => {
+    const focusableElements = sidebar.querySelectorAll('a, button');
+    if (sidebar.getAttribute('role') === 'dialog') {
+      focusableElements.forEach((el) => {
+        el.removeAttribute('tabindex');
+      });
+    } else {
+      focusableElements.forEach((el) => {
+        el.setAttribute('tabindex', '-1');
+      });
+    }
+  });
+
+  sidebarRoleObserver.observe(sidebar, {
+    attributes: true,
+    attributeFilter: ['role'],
   });
 
   if ('addEventListener' in query) {

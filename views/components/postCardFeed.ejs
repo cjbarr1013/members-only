@@ -26,10 +26,10 @@
     <% if (currentUser && currentUser.admin) { %> <%- include('./buttonDeleteItem', {postId: post.id, commentId: null}) %> <% } %>
   </div>
   <div class="flex grow flex-col gap-1 wrap-anywhere">
-    <h2 class="line-clamp-3 p-0.5 text-lg/6 font-semibold">
+    <h2 class="p-0.5 text-lg/6 font-semibold">
       <a
         href="/view/posts/<%= post.id %>"
-        class="hover:underline"
+        class="line-clamp-3 hover:underline"
         aria-label="View page for post"
       >
         <%= post.title %>

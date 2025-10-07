@@ -9,6 +9,7 @@ async function uploadImage(imagePath, username) {
     overwrite: true,
     allowed_formats: ['png', 'jpg', 'jpeg', 'webp'],
     transformation: [
+      // tranform on upload to save space
       { width: 300, height: 300, crop: 'limit' },
       { quality: 'auto', fetch_format: 'auto' },
     ],
@@ -28,7 +29,7 @@ async function uploadImageBuffer(buffer, username) {
         invalidate: true,
         resource_type: 'image',
         allowed_formats: ['png', 'jpg', 'jpeg', 'webp'],
-        transformation: [{ width: 500, height: 500, crop: 'limit' }],
+        transformation: [{ width: 500, height: 500, crop: 'limit' }], // transform on upload to save space
       },
       (err, result) => {
         if (err) return reject(err);
@@ -41,7 +42,7 @@ async function uploadImageBuffer(buffer, username) {
 
 function getImageUrlSm(username, version) {
   return cloudinary.url(`members-only-user-images/${username}`, {
-    version,
+    version, // needed to update pic when user uploads new image
     transformation: [
       { width: 80, height: 80, gravity: 'faces', crop: 'fill' },
       { quality: 'auto', fetch_format: 'auto' },
@@ -51,7 +52,7 @@ function getImageUrlSm(username, version) {
 
 function getImageUrlLg(username, version) {
   return cloudinary.url(`members-only-user-images/${username}`, {
-    version,
+    version, // needed to update pic when user uploads new image
     transformation: [
       { width: 300, height: 300, gravity: 'faces', crop: 'fill' },
       { quality: 'auto', fetch_format: 'auto' },
