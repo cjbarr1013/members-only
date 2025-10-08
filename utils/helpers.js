@@ -43,6 +43,7 @@ async function uploadImageBuffer(buffer, username) {
 function getImageUrlSm(username, version) {
   return cloudinary.url(`members-only-user-images/${username}`, {
     version, // needed to update pic when user uploads new image
+    analytics: false,
     transformation: [
       { width: 80, height: 80, gravity: 'faces', crop: 'fill' },
       { quality: 'auto', fetch_format: 'auto' },
@@ -53,6 +54,7 @@ function getImageUrlSm(username, version) {
 function getImageUrlLg(username, version) {
   return cloudinary.url(`members-only-user-images/${username}`, {
     version, // needed to update pic when user uploads new image
+    analytics: false,
     transformation: [
       { width: 300, height: 300, gravity: 'faces', crop: 'fill' },
       { quality: 'auto', fetch_format: 'auto' },
