@@ -1,4 +1,4 @@
-# members-only
+# Members Only
 
 ### [LIVE WEBSITE](https://members-only-production-0f4f.up.railway.app)
 
@@ -15,11 +15,45 @@ Basic social media site made as part of [The Odin Project](https://www.theodinpr
 - Flowbite components
 
 ## Features
-- Local auth with sessions
-- Varying permissions based on user status
-- Create/Edit profile with optional image upload
-- Image upload to Cloudinary; delivery via transformation URLs
-- Versioned image URLs to bust CDN cache on overwrite
-- Accessible UI components (modals, sidebar)
-- Modern user interface built with help from Tailwind
-- 
+- Express + Node.js full-stack application following MVC structure
+  - Clear separation of concerns: routes → controllers → views → utils.
+  - Controllers orchestrate validation, auth, DB calls, and view rendering.
+  - Reusable helpers for formatting and Cloudinary URL generation.
+
+- PostgreSQL data layer
+  - Centralized query module for users, posts, comments, and sessions.
+  - Session storage backed by Postgres (connect-pg-simple).
+  - DB utilities for seeding/clearing data to support development and tests.
+
+- Authentication (Passport + sessions)
+  - Local strategy with bcrypt password hashing.
+  - Persistent login via secure cookie-based sessions.
+  - Sign-in, sign-up, and sign-out flows.
+  - Auth guards (middleware) for protected routes and ownership checks.
+ 
+- Authorization (role- and state-based)
+  - Route-level middleware enforces permissions for basic, member, and admin users.
+
+| Role                  | Read post | Visit post | Visit profiles | Create posts/comments | Delete posts/comments | Sign-in | Register | Sign-out |
+|-----------------------|-----------|------------|----------------|-----------------------|-----------------------|---------|----------|----------|
+| Basic (not signed-in) | X         |            |                |                       |                       | X       | X        |          |
+| Member                | X         | X          | X              | X                     |                       |         |          | X        |
+| Admin                 | X         | X          | X              | X                     | X                     |         |          | X        |
+
+- Cloudinary image pipeline (optimized)
+  - Multer memoryStorage parses file uploads.
+  - Uploads stored under a scoped folder with overwrite + invalidate.
+  - Versioned delivery URLs ensure cache-busting on replacement.
+  - Delivery transforms: face-aware crop, exact sizes, and f_auto/q_auto for modern formats and adaptive quality.
+  - URL analytics disabled to minimize tracking params.
+ 
+- Accessible, responsive UI (EJS + Tailwind + Flowbite)
+  - Tailwind for utility-first styling; production build purged and minified.
+  - Components (modals, sidebar) made keyboard- and screen-reader-friendly:
+  - Sidebar focus management toggles tabbability when opened/closed.
+  - LCP-friendly images: fixed dimensions and fetchpriority on the primary image.
+  
+- Full integration tests (Jest + Supertest/Superagent)
+  - Global DB setup/teardown to run tests against a real Postgres instance.
+  - Tests cover end-to-end flows: auth, permissions, posting, comments, and image upload paths.
+  - Deterministic environment for reliable testing.
