@@ -51,7 +51,7 @@ Basic social media site made as part of [The Odin Project](https://www.theodinpr
   - Tailwind for utility-first styling; production build purged and minified.
   - Components (modals, sidebar) made keyboard- and screen-reader-friendly:
   - Sidebar focus management toggles tabbability when opened/closed.
-  - LCP-friendly images: fixed dimensions and fetchpriority on the primary image.
+  - Light/Dark modes that adapt to user preferences
   
 - Full integration tests (Jest + Supertest/Superagent)
   - Global DB setup/teardown to run tests against a real Postgres instance.
