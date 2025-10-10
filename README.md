@@ -25,13 +25,14 @@ Basic social media site made as part of [The Odin Project](https://www.theodinpr
   - Session storage backed by Postgres (connect-pg-simple).
   - DB utilities for seeding/clearing data to support development and tests.
 
-- Authentication (Passport + sessions)
+- Authentication and Validation (Passport + sessions + express-validator)
   - Local strategy with bcrypt password hashing.
   - Persistent login via secure cookie-based sessions.
   - Sign-in, sign-up, and sign-out flows.
   - Auth guards (middleware) for protected routes and ownership checks.
+  - Validation for user input provided by express-validator.
  
-- Authorization (role- and state-based)
+- Authorization (role-based)
   - Route-level middleware enforces permissions for basic, member, and admin users.
 
 | Role                  | Read post | Visit post | Visit profiles | Create posts/comments | Delete posts/comments | Sign-in | Register | Sign-out |
@@ -52,6 +53,7 @@ Basic social media site made as part of [The Odin Project](https://www.theodinpr
   - Components (modals, sidebar) made keyboard- and screen-reader-friendly:
   - Sidebar focus management toggles tabbability when opened/closed.
   - Light/Dark modes that adapt to user preferences
+  - Flash messages to alert the user of completed or rejected actions
   
 - Full integration tests (Jest + Supertest/Superagent)
   - Global DB setup/teardown to run tests against a real Postgres instance.
